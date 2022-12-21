@@ -360,6 +360,10 @@ label {
     display: inline-block;
 }
 
+.form-horizontal .control-label {
+    text-align: left;
+}
+
 button {
     border-radius: 0;
 }

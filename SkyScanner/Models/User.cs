@@ -28,6 +28,8 @@ namespace SkyScanner.Models
         public string LastName { get; set; }
         [Required]
         public bool Admin { get; set; } = false;
+        [Required]
+        public bool KeepLoggedIn { get; set; } = false;
 
     }
 }

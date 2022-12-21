@@ -1,0 +1,45 @@
+﻿@model SkyScanner.Models.User;
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="container p-6">
+    <form method="post" asp-controller="User" asp-action="Login" >
+        <div class="form-group" align="center">
+            <br />
+            <br />
+            <br />
+           <b>
+                <font size="5">
+                    <label asp-for="Email" class="form-label" > </label>
+               </font>
+           </b>
+           <input asp-for="Email" style="width:25%" class="form-control" placeholder="example@mail.com"/>
+           <span asp-validation-for="Email" class="text-bg-danger"></span>
+           <b>
+                <font size="5">
+                    <label asp-for="Password" class="form-label"> </label>
+               </font>
+           </b>
+           <input asp-for="Password" style="width:25%" class="form-control" placeholder="Password"/>
+           <span asp-validation-for="Password" class="text-bg-danger"></span>
+           <br />
+           <label>
+               <input class="form-check-input" type="checkbox" asp-for="KeepLoggedIn">
+               Stay Logged In
+           </label>
+           <br />
+           <br />
+            <button type="submit" class="btn btn-primary btn-sm">
+                <font size="4">
+                    Login
+                </font>
+            </button>
+            <a  asp-controller="User" asp-action="AddUser" type="button" class="btn btn-secondary btn-sm">
+                <font size="4">
+                    Register
+                </font>
+            </a>
+        </div>
+    </form>
+</div>
+

@@ -2,8 +2,13 @@
 using SkyScanner.Models;
 using System.Diagnostics;
 
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+
 namespace SkyScanner.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,7 +23,13 @@ namespace SkyScanner.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> LogOut()
+        { 
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "User");
+        }
+
+            public IActionResult Privacy()
         {
             return View();
         }
