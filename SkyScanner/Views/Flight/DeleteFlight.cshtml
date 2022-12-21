@@ -1,0 +1,72 @@
+﻿@model Flight
+
+<br />
+<div class="container p-3">
+    <form method="post">
+        <div class="form-group">
+            <fieldset disabled="">
+               <font size="5">
+                    <b>
+                        <label asp-for="FlightId" class="form-label"></label>
+                    </b>
+                </font>
+               <input asp-for="FlightId" style="width:25%" class="form-control" placeholder="Flight ID"/>
+               <span asp-validation-for="FlightId" class="text-bg-danger"></span>
+           </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled="">
+                <font size="5">
+                    <b>
+                        <label asp-for="Origin" class="form-label mt-4"></label>
+                    </b>
+                </font>
+               <input asp-for="Origin" style="width:25%" class="form-control" placeholder="Origin"/>
+               <span asp-validation-for="Origin" class="text-bg-danger"></span>
+           </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled="">
+              <font size="5">
+                    <b>
+                        <label asp-for="Destination" class="form-label mt-4"></label>
+                    </b>
+                </font>
+              <input asp-for="Destination" style="width:25%" class="form-control" placeholder="Destination"/>
+              <span asp-validation-for="Destination" class="text-bg-danger"></span>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled="">
+              <font size="5">
+                    <b>
+                        <label asp-for="Price" class="form-label mt-4"></label>
+                    </b>
+                </font>
+              <input asp-for="Price" style="width:25%" class="form-control" placeholder="Price"/>
+              <span asp-validation-for="Price" class="text-bg-danger"></span>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled="">
+              <font size="5">
+                    <b>
+                        <label asp-for="Airline" class="form-label mt-4"></label>
+                    </b>
+                </font>
+              <input asp-for="Airline" style="width:25%" class="form-control" placeholder="Airline"/>
+              <span asp-validation-for="Airline" class="text-bg-danger"></span>
+            </fieldset>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-danger" style="width:150px">Confirm</button>
+        <a asp-controller="Flight" asp-action="FlightList" class="btn btn-warning" style="width:150px">
+            Cancel
+        </a>
+    </form>
+</div>

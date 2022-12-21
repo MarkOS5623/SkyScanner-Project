@@ -18,46 +18,64 @@
     </div>
 </div>
 
-<table class = "table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                FlightId
-            </th>
-            <th>
-                Origin
-            </th>
-            <th>
-                Destination
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Airline
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var obj in Model)
-        {
+<div class = "container p-3">
+    <table class = "table table-primary table-striped" style="width:100%">
+        <thead class="table-info">
             <tr>
-                <td width="20%">
-                    @obj.FlightId
-                </td>
-                <td width="20%">
-                    @obj.Origin
-                </td>
-                <td width="20%">
-                    @obj.Destination
-                </td>
-                <td width="20%">
-                    @obj.Price
-                </td>
-                <td width="20%">
-                    @obj.Airline
-                </td>
+                <th>
+                    FlightId
+                </th>
+                <th>
+                    Origin
+                </th>
+                <th>
+                    Destination
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Airline
+                </th>
+                <th width="80px" ></th>
+                <th width="100px"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach(var obj in Model)
+            {
+                <tr>
+                    <td>
+                        @obj.FlightId
+                    </td>
+                    <td>
+                        @obj.Origin
+                    </td>
+                    <td>
+                        @obj.Destination
+                    </td>
+                    <td>
+                        @obj.Price
+                    </td>
+                    <td>
+                        @obj.Airline
+                    </td>
+                    <td>
+                        <div class="btn-sm" role="group">
+                            <a  asp-controller="Flight" asp-action="EditFlight" asp-route-flightid="@obj.FlightId" type="button" class="btn btn-dark btn-sm">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-sm" role="group">
+                            <a  asp-controller="Flight" asp-action="DeleteFlight" asp-route-flightid="@obj.FlightId" type="button" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

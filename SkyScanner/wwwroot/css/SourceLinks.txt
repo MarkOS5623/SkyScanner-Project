@@ -1,0 +1,5 @@
+﻿Bootstrap theme used for project
+https://bootswatch.com/cerulean/
+
+Bootstrap icons used for project
+https://icons.getbootstrap.com/

@@ -20,8 +20,13 @@ namespace SkyScanner.Models
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Airline name must be between 4 and 30 charaters long")]
         public string Airline { get; set; }
         [Key]
-        [RegularExpression("^[0-9]{4}$", ErrorMessage = "Flight ID must only contain numbers and have 4 characters")]
+        [RegularExpression("^[0-9]{4}$", ErrorMessage = "Flight ID must only contain 4 numbers")]
         [StringLength(4, MinimumLength = 4)]
         public string FlightId { get; set; }
+        [Required]
+
+        public DateTime ArrivalDate { get; set; }
+        [Required]
+        public DateTime DepartureDate { get; set; }
     }
 }
