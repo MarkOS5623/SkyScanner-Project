@@ -9,3 +9,10 @@
     height: 10em;
 }
 
+body, html {
+    height: 100%;
+    background-image: linear-gradient(rgba(2, 25, 69, 1),rgba( 2, 25, 69, 0.9), rgba( 2, 25, 69, 0.8));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}

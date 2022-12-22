@@ -1,8 +1,75 @@
-﻿@{
+﻿@model IEnumerable<Flight>
+@{
     ViewData["Title"] = "Home Page";
 }
+<body>
+<div class="m-5" ">
+    <div class="m-5 p-2">
 
-<div class="text-center" style="height:100%">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="m-lg-5">
+
+        <div class="text-center">
+
+            <table class = "table table-borderless">
+                 <thead class="table-info">
+                   <th>
+                       <font size ="6"><b>Flights</b> </font>
+                   </th>
+                  </thead>
+                  <tbody>
+                   @foreach(var obj in Model){
+                    <tr>
+                      <td>
+                       <div class="card border-primary mb-4" style="max-width: auto;" id="@obj.FlightId ">  
+                         <div class="card-header" align="left"><font size ="5" color="rgba(2, 25, 69, 1)"><b>@obj.Origin To @obj.Destination</b> </font></div>
+                         <div class="card-body">
+                           <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                 <button class="accordion-button mb-2" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" 
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                    <b><font size="5">Flight Information<br></font></b>
+                                 </button>  
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" 
+                                    aria-labelledby="headingOne">
+                              <div class="accordion-body" align="left">
+                                  <ul class="list-group">
+                                  <font size="4">
+                                  <li class="list-group-item">
+                                    <b>Filght ID: </b> @obj.FlightId 
+                                   </li>
+                                    <li class="list-group-item">
+                                    <b>Price: </b> @obj.Price<b>₪</b>
+                                    </li>
+                                    <li class="list-group-item">
+                                    <p style="color:darkgreen"><b>Arrival Date: </b> @obj.ArrivalDate.Day/@obj.ArrivalDate.Month/@obj.ArrivalDate.Year</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                    <p style="color:darkgreen"><b>Arrival Time: </b> @obj.ArrivalDate.Hour:@obj.ArrivalDate.Minute</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                    <p style="color:darkred"><b>Departure Date: </b> @obj.DepartureDate.Day/@obj.DepartureDate.Month/@obj.DepartureDate.Year</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                    <p style="color:darkred"><b>Departure Time: </b> @obj.DepartureDate.Hour:@obj.DepartureDate.Minute</p>
+                                    </li>
+                                    </font>
+                                    </ul>
+                              </div>
+                             </div>
+                            </div>
+                         </div>
+                       </div>
+                      </td>
+                    </tr>
+                   }
+                 </tbody>
+            </table>
+
+        </div>
+    </div>
+    </div>
+
 </div>
+</body>

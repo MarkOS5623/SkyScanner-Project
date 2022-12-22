@@ -5,22 +5,25 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-
+using SkyScanner.Data;
+using SkyScanner.Models;
 namespace SkyScanner.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private FlightDbContext _db;
+        public HomeController(ILogger<HomeController> logger, FlightDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
+        private readonly ILogger<HomeController> _logger;
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Flight> objUserList = _db.Flights;
+            return View(objUserList);
         }
 
         public async Task<IActionResult> LogOut()
