@@ -10,6 +10,7 @@ namespace SkyScanner.Controllers
         public FlightController(FlightDbContext db) //setting up db context
         {
             _db = db;
+            _db.Seats = db.Seats;
         }
         public IActionResult Index()
         {
@@ -29,9 +30,13 @@ namespace SkyScanner.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddFlight(Flight obj) //POST method for AddFlight
         {
+            obj.Seats = obj.setSeats(obj.NumberOfSeats);
+            List<Seat> temp = obj.Seats;
             if (ModelState.IsValid)
             {
                 _db.Flights.Add(obj);
+               for(int i = 0; i < obj.Seats.Count();i++)
+                _db.Seats.Add(temp[i]);
                 _db.SaveChanges();
                 return RedirectToAction("FlightList");
             }

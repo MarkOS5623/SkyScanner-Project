@@ -5,10 +5,17 @@ namespace SkyScanner.Data
 {
     public class FlightDbContext : DbContext
     {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Seat>()
+            .HasOne(c => c.Flight).WithMany(c => c.Seats)
+            .HasForeignKey(c => c.Flight_num); 
+        }
         public FlightDbContext(DbContextOptions<FlightDbContext> options) : base(options)
         {
 
         }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<Seat> Seats { get; set; }
     }
 }

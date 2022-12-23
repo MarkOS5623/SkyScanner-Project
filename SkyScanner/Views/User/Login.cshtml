@@ -9,14 +9,14 @@
             <br />
             <br />
            <b>
-                <font size="5">
+                <font size="5" color="darkcyan">
                     <label asp-for="Email" class="form-label" > </label>
                </font>
            </b>
            <input asp-for="Email" style="width:25%" class="form-control" placeholder="example@mail.com"/>
            <span asp-validation-for="Email" class="text-bg-danger"></span>
            <b>
-                <font size="5">
+                <font size="5" color="darkcyan">
                     <label asp-for="Password" class="form-label"> </label>
                </font>
            </b>
@@ -25,16 +25,16 @@
            <br />
            <label>
                <input class="form-check-input" type="checkbox" asp-for="KeepLoggedIn">
-               Stay Logged In
+               <font size="3" color="darkcyan">Stay Logged In</font>
            </label>
            <br />
            <br />
-            <button type="submit" class="btn btn-primary btn-sm">
+            <button type="submit" class="btn btn-primary btn-sm" style="color:darkcyan;width:120px">
                 <font size="4">
                     Login
                 </font>
             </button>
-            <a  asp-controller="User" asp-action="AddUser" type="button" class="btn btn-secondary btn-sm">
+            <a  asp-controller="User" asp-action="AddUser" type="button" class="btn btn-secondary btn-sm" style="color:rgba(5, 30, 75, 1);width:120px">
                 <font size="4">
                     Register
                 </font>

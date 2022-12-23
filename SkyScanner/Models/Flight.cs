@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+
 
 namespace SkyScanner.Models
 {
@@ -25,8 +28,34 @@ namespace SkyScanner.Models
         public string FlightId { get; set; }
         [Required]
 
-        public DateTime ArrivalDate { get; set; }
-        [Required]
         public DateTime DepartureDate { get; set; }
+        [Required]
+        public DateTime ReturnDate { get; set; }
+        [Required]
+        public List<Seat> Seats { get; set; }
+        [Required]
+
+        public int NumberOfSeats  { get; set; }
+        public List<Seat> setSeats(int n)
+        {
+            var temp = new List<Seat>();
+            for (int i = 0; i < n; i++)
+            {
+                if(i < n / 2)
+                {
+                    string b = (i+1).ToString();
+                    string c = FlightId.ToString();
+                    temp.Add(new Seat(c+"-A"+b));
+                }
+                else
+                {
+                    string b = (i + 1 - 10).ToString();
+                    string c = FlightId.ToString();
+                    temp.Add(new Seat(c+"-B" + b));
+                }
+            }
+            return temp;
+        }
+   
     }
 }

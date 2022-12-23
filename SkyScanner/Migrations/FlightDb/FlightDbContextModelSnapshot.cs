@@ -33,9 +33,6 @@ namespace SkyScanner.Migrations.FlightDb
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<DateTime>("ArrivalDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
 
@@ -43,6 +40,9 @@ namespace SkyScanner.Migrations.FlightDb
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("NumberOfSeats")
+                        .HasColumnType("int");
 
                     b.Property<string>("Origin")
                         .IsRequired()
@@ -52,9 +52,48 @@ namespace SkyScanner.Migrations.FlightDb
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("FlightId");
 
                     b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("SkyScanner.Models.Seat", b =>
+                {
+                    b.Property<string>("Seat_Num")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("Booked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Flight_num")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(4)");
+
+                    b.HasKey("Seat_Num");
+
+                    b.HasIndex("Flight_num");
+
+                    b.ToTable("Seats");
+                });
+
+            modelBuilder.Entity("SkyScanner.Models.Seat", b =>
+                {
+                    b.HasOne("SkyScanner.Models.Flight", "Flight")
+                        .WithMany("Seats")
+                        .HasForeignKey("Flight_num")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+                });
+
+            modelBuilder.Entity("SkyScanner.Models.Flight", b =>
+                {
+                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }
