@@ -21,6 +21,22 @@ namespace SkyScanner.Controllers
             IEnumerable<Flight> objUserList = _db.Flights;
             return View(objUserList);
         }
+        public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
+        {
+            if (flightid == null) return NotFound();
+            var flightFromDb = _db.Flights.Find(flightid);
+            if (flightFromDb == null) return NotFound();
+            return View(flightFromDb);
+        }
+        [HttpPost]
+        public IActionResult BookSeat(string[] Pog) //POST method for BookSeat
+        {
+            if (Pog != null)
+            {
+                return RedirectToAction("FlightList");
+            }
+            return View();
+        }
         public IActionResult AddFlight() //GET method for AddFlight
         {
             return View();

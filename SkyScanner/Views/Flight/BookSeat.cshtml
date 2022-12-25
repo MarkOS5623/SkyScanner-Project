@@ -1,0 +1,82 @@
+﻿@model Flight
+
+<head>
+    <link rel="stylesheet" href="~/css/SeatBooking.css" />
+</head>
+
+
+
+<div class="planediv">
+    <div class="form-group">
+        <fieldset disabled="">
+            <font size="5">
+                 <b><label asp-for="FlightId" class="form-label"></label></b>
+            </font>
+           <input asp-for="FlightId" style="width:25%" class="form-control" placeholder="Flight ID" id="FlightID"/>
+           <span asp-validation-for="FlightId" class="text-bg-danger"></span>
+        </fieldset>
+       <fieldset disabled="">
+           <font size="5">
+              <b><label asp-for="Price" class="form-label"></label></b>
+           </font>
+           <input asp-for="Price" style="width:25%" class="form-control" placeholder="Flight ID" id="Price"/>
+           <span asp-validation-for="Price" class="text-bg-danger"></span>
+       </fieldset>
+       <fieldset disabled="">
+           <font size="5">
+              <b><label asp-for="NumberOfSeats" class="form-label"></label></b>
+           </font>
+           <input asp-for="NumberOfSeats" style="width:25%" class="form-control" placeholder="Flight ID" id="NumberOfSeats"/>
+           <span asp-validation-for="NumberOfSeats" class="text-bg-danger"></span>
+       </fieldset>
+    </div>
+    <ul class="showcase">
+      <li>
+        <div class="seat"></div>
+        <small>N/A</small>
+      </li>
+
+      <li>
+        <div class="seat selected"></div>
+        <small>Selected</small>
+      </li>
+
+      <li>
+        <div class="seat occupied"></div>
+        <small>Occupied</small>
+      </li>
+    </ul>
+    
+<script>
+    const NumberOfSeats = document.getElementById('NumberOfSeats');
+    let SeatNum = NumberOfSeats.value;
+    const planediv = document.createElement('container');
+    planediv.className = 'container';
+    planediv.id='container2';
+    document.body.appendChild(planediv);
+    const container2 = document.createElement('div');
+    container2.className = 'container mt-4';
+    container2.id='container';
+    container2.style='height:300px; width:282px;';
+    planediv.appendChild(container2);
+    for(let i = 0; i < SeatNum/4; i++){
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.style='height:35px';
+    container.appendChild(row);
+    for(let i = 0; i < 4; i++){
+    const seat = document.createElement('div');
+    seat.className = 'seat';
+    row.appendChild(seat);
+    }}
+</script>
+
+<a id="Book" class="btn btn-primary btn-lg">
+    Book
+</a>
+
+<p class="text">
+      You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
+    </p>
+    <script src="~/lib/jquery/dist/SeatScript.js"></script>
+</div>

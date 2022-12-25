@@ -1,0 +1,95 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+html {
+    height: 100%;
+    background-image: linear-gradient(rgba( 5, 30, 75, 0.8),rgba(5, 30, 75, 0.9),rgba( 5, 30, 75, 0.8));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+planediv {
+    background-color: #242333;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    perspective: 1000px;
+    margin-bottom: 30px;
+}
+
+.seat { /* Seat Design */
+    background-color: #444451;
+    height: 24px;
+    width: 30px;
+    margin: 3px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+    .seat.selected { /* Selected Seat Color */
+        background-color: #6feaf6;
+    }
+
+    .seat.occupied { /* Selected Seat Color */
+        background-color: #fff;
+    }
+
+    .seat:nth-of-type(2) { /* Creates 2 seat coloums on the left */
+        margin-right: 36px;
+    }
+
+    .seat:nth-last-of-type(2) { /* Creates 2 seat coloums on the right */
+        margin-left: 36px;
+    }
+
+    .seat:not(.occupied):hover { /* Makes seat that is hovered over larger */
+        cursor: pointer;
+        transform: scale(1.2);
+    }
+
+.showcase .seat:not(.occupied):hover {
+    cursor: default;
+    transform: scale(1);
+}
+
+.showcase { /* Showcase ie what color is what seat design */
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #777;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .showcase li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+    }
+
+        .showcase li small {
+            margin-left: 10px;
+        }
+
+.row {
+    display: flex;
+}
+
+p.text {
+    margin: 5px 0;
+}
+
+p.text span {
+    color: #6feaf6;
+}
