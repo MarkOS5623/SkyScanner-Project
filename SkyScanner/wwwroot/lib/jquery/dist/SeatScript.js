@@ -4,20 +4,22 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied'); //will only
 const count = document.getElementById('count'); //number of selected seats
 const total = document.getElementById('total'); //total price of seats
 const price = document.getElementById('Price');
-const FlightId = document.getElementById('FlightId');
+const FlightID = document.getElementById('FlightId');
+localStorage.setItem('selectedFlightID', FlightID.value);
+console.log(localStorage.getItem('selectedFlightID'));
 const seatnumtotal = document.getElementById('NumberOfSeats');
+
+const str = BookedSeats.value;
+const BookedIndexes = str.split(',').map(Number);
+let popped = BookedIndexes.pop();
+console.log(popped);
 
 populateUI();
 
 let SeatPrice = Price.value;
 
-// Save selected movie index and price
-function setBookingData(FlightID, SeatPrice) {
-    localStorage.setItem('selectedFlightID', FlightID);
-    localStorage.setItem('selectedSeatPrice', SeatPrice);
-}
-
 // update total and count
+
 function updateSelectedCount() {
 
     const selectedSeats = document.querySelectorAll('.row .seat.selected');
@@ -45,24 +47,49 @@ function populateUI() {
             }
         });
     }
-
-    const selectedFlightID = localStorage.getItem('selectedFlightID');
-
-    if (selectedFlightID !== null) {
-        selectedFlightID.selectedIndex = selectedFlightID;
+    if (BookedIndexes !== null && BookedIndexes.length > 0) {
+        seats.forEach((seat, index) => {
+            if (BookedIndexes.indexOf(index) > -1) {
+                seat.classList.add('occupied');
+            }
+        });
     }
 }
+
+function DepopulateUI() {
+    const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+    if (selectedSeats !== null && selectedSeats.length > 0) {
+        seats.forEach((seat, index) => {
+            if (selectedSeats.indexOf(index) > -1) {
+                seat.classList.add('seat');
+            }
+        });
+    }
+    if (BookedIndexes !== null && BookedIndexes.length > 0) {
+        seats.forEach((seat, index) => {
+            if (BookedIndexes.indexOf(index) > -1) {
+                seat.classList.add('seat');
+            }
+        });
+    }
+}
+
 banana.addEventListener('click', (E) => {
     E.preventDefault();
     $.ajax({
-        type: "Post",
-        dataType: "json",
+        type: "POST",
+        dataType: "json; charset=utf-8",
         url: "/Flight/BookSeat",
         data: {
-            Pog: JSON.parse(localStorage.getItem('selectedSeats'))
-        }
-    });
+            Seats: JSON.parse(localStorage.getItem('selectedSeats')),
+            FlightID: JSON.parse(localStorage.getItem('selectedFlightID'))
+           }
+        });
+    DepopulateUI();
+    localStorage.clear();
+    window.location = "/Flight/FlightList", true;
 });
+
 // Seat click event
 container.addEventListener('click', (e) => {
     if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {

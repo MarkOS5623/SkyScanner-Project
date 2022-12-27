@@ -11,6 +11,8 @@ namespace SkyScanner.Models
 {
     public class Flight
     {
+        [StringLength(1000)]
+        public string? BookedSeats { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Origin name must be between 4 and 30 charaters long")]
         public string Origin { get; set; }
@@ -34,28 +36,43 @@ namespace SkyScanner.Models
         [Required]
         public List<Seat> Seats { get; set; }
         [Required]
-
         public int NumberOfSeats  { get; set; }
         public List<Seat> setSeats(int n)
         {
+            int x = 1, y = 1, z = 1, k = 1;
             var temp = new List<Seat>();
             for (int i = 0; i < n; i++)
             {
-                if(i < n / 2)
+                if(i % 4 == 0)
                 {
-                    string b = (i+1).ToString();
+                    string b = (x).ToString();
+                    x++;
                     string c = FlightId.ToString();
-                    temp.Add(new Seat(c+"-A"+b));
+                    temp.Add(new Seat("A" + b + "-" + c));
                 }
-                else
+                else if((i + 2) % 4 == 0)
                 {
-                    string b = (i + 1 - 10).ToString();
+                    string b = (y).ToString();
+                    y++;
                     string c = FlightId.ToString();
-                    temp.Add(new Seat(c+"-B" + b));
+                    temp.Add(new Seat("B" + b + "-" + c));
+                }
+                else if(i % 4 == 1)
+                {
+                    string b = (z).ToString();
+                    z++;
+                    string c = FlightId.ToString();
+                    temp.Add(new Seat("C" + b + "-" + c));
+                }
+                else if ((i + 2) % 4 == 1)
+                {
+                    string b = (k).ToString();
+                    k++;
+                    string c = FlightId.ToString();
+                    temp.Add(new Seat("D" + b + "-" + c));
                 }
             }
             return temp;
         }
-   
     }
 }

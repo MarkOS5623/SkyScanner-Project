@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SkyScanner.Migrations.FlightDb
 {
     /// <inheritdoc />
-    public partial class UpdateFlightsDb : Migration
+    public partial class FlightDBRemake2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,6 +16,7 @@ namespace SkyScanner.Migrations.FlightDb
                 columns: table => new
                 {
                     FlightId = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    BookedSeats = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Origin = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Destination = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),

@@ -33,6 +33,10 @@ namespace SkyScanner.Migrations.FlightDb
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<string>("BookedSeats")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
 

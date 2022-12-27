@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SkyScanner.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json;
 
 namespace SkyScanner.Data
 {
@@ -9,7 +11,13 @@ namespace SkyScanner.Data
         {
             modelBuilder.Entity<Seat>()
             .HasOne(c => c.Flight).WithMany(c => c.Seats)
-            .HasForeignKey(c => c.Flight_num); 
+            .HasForeignKey(c => c.Flight_num);
+
+           /* modelBuilder.Entity<Flight>()
+           .Property(e => e.BookedSeats)
+           .HasConversion(
+               v => string.Join(',', v),
+               v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));*/
         }
         public FlightDbContext(DbContextOptions<FlightDbContext> options) : base(options)
         {

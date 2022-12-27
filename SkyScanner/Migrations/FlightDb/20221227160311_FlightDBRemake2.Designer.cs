@@ -12,8 +12,8 @@ using SkyScanner.Data;
 namespace SkyScanner.Migrations.FlightDb
 {
     [DbContext(typeof(FlightDbContext))]
-    [Migration("20221223142445_UpdateFlightsDb")]
-    partial class UpdateFlightsDb
+    [Migration("20221227160311_FlightDBRemake2")]
+    partial class FlightDBRemake2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,10 @@ namespace SkyScanner.Migrations.FlightDb
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("BookedSeats")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");

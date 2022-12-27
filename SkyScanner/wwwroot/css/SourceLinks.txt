@@ -3,3 +3,6 @@ https://bootswatch.com/cerulean/
 
 Bootstrap icons used for project
 https://icons.getbootstrap.com/
+
+EntityFrameworkCore\Add-Migration [name] -context [context]
+EntityFrameworkCore\update-database -context [context]
