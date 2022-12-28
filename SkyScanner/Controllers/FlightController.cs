@@ -30,39 +30,33 @@ namespace SkyScanner.Controllers
             return View(flightFromDb);
         }
         [HttpPost]
-        public IActionResult BookSeat(string[] Seats, string? FlightID) //POST method for BookSeat
+        public IActionResult BookSeat(string[] Seats,string[] Indexes, string? FlightID) //POST method for BookSeat
         {
             IEnumerable<Flight> objFlightList = _db.Flights;
             var flightFromDb = _db.Flights.Find(FlightID);
-            if (Seats.Length > 0 && Seats != null)
-            {
-                int[] array = new int[Seats.Length];
-                var SeatFromDb = _db.Seats.Where(x => x.Flight_num == FlightID).ToList();
-                if (flightFromDb != null)
-                for (int i = 0; i < Seats.Length; i++)
+            int[] array = new int[Indexes.Length];
+            if (flightFromDb != null)
+                for (int i = 0; i < Indexes.Length; i++)
                 {
-                    array[i] = int.Parse(Seats[i]);
-                    flightFromDb.BookedSeats += Seats[i];
+                    array[i] = int.Parse(Indexes[i]);
+                    flightFromDb.BookedSeats += Indexes[i];
                     flightFromDb.BookedSeats += ',';
                 }
-                
-                for (int i = 0; i < array.Length; i++)
+
+            if (Seats.Length > 0 && Seats != null)
+            {
+                var SeatFromDb = _db.Seats.Where(x => x.Flight_num == FlightID).ToArray();
+                for (int i = 0, j = 0; i < SeatFromDb.Count(); i++)
                 {
-                    if (array[i] % 4 == 0)
+                    var kmn = SeatFromDb[i].Seat_Num.Trim().Equals(Seats[j].Trim());
+                    if (kmn)
                     {
-                        SeatFromDb[i].Booked = true;
-                    }
-                    else if ((array[i] + 2) % 4 == 0)
-                    {
-                        SeatFromDb[array[i]].Booked = true;
-                    }
-                    else if (array[i] % 4 == 1)
-                    {
-                        SeatFromDb[array[i]].Booked = true;
-                    }
-                    else if ((array[i] + 2) % 4 == 1)
-                    {
-                        SeatFromDb[array[i]].Booked = true;
+                        var temp = _db.Seats.Find(Seats[j].Trim());
+                        if (temp != null)
+                        {
+                            temp.Booked = true;
+                            _db.Seats.Update(temp);
+                        }
                     }
                 }
                 _db.SaveChanges();

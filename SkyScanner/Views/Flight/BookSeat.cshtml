@@ -60,7 +60,8 @@
     const NumberOfSeats = document.getElementById('NumberOfSeats');
     let SeatNum = NumberOfSeats.value;
     const planediv = document.createElement('container');
-
+    const flightNumber = document.getElementById('FlightId');
+    let flightNum = flightNumber.value;
     planediv.className = 'container';
     planediv.id='container2';
     document.body.appendChild(planediv);
@@ -69,7 +70,7 @@
     container2.id='container';
     container2.style='height:300px; width:282px;';
     planediv.appendChild(container2);
-    
+    localStorage.clear();
     for(let j = 0; j < SeatNum/4; j++){
         const row = document.createElement('div');
         row.className = 'row';
@@ -78,6 +79,14 @@
         for(let i = 0; i < 4; i++){
             const seat = document.createElement('div');
             seat.className = 'seat';
+            if(i == 0)
+            seat.value = 'A'+(j+1).toString()+'-'+flightNum;
+            if(i == 1)
+            seat.value = 'B'+(j+1).toString()+'-'+flightNum;
+            if(i == 2)
+            seat.value = 'C'+(j+1).toString()+'-'+flightNum;
+            if(i == 3)
+            seat.value = 'D'+(j+1).toString()+'-'+flightNum;
             row.appendChild(seat);
     }}
 </script>

@@ -25,7 +25,11 @@ function updateSelectedCount() {
     const selectedSeats = document.querySelectorAll('.row .seat.selected');
 
     const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+    const ids = [...selectedSeats].map(x => x.value);
+    console.log(ids);
     localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+    localStorage.setItem('SeatValues', JSON.stringify(ids));
     //copy selected seats into arr
     //map through array
     //return new array of indexes
@@ -81,7 +85,8 @@ banana.addEventListener('click', (E) => {
         dataType: "json; charset=utf-8",
         url: "/Flight/BookSeat",
         data: {
-            Seats: JSON.parse(localStorage.getItem('selectedSeats')),
+            Seats: JSON.parse(localStorage.getItem('SeatValues')),
+            Indexes: JSON.parse(localStorage.getItem('selectedSeats')),
             FlightID: JSON.parse(localStorage.getItem('selectedFlightID'))
            }
         });
