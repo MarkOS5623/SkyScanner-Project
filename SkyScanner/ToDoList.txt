@@ -1,0 +1,23 @@
+﻿Compelete booking process:
+- Do payment page
+- save booking to user
+- Add creditcard class to User class
+- Make it impossible to book flights that already took off
+
+Fix button location for seating map
+
+Add country dict
+
+Update AddFlight:
+- change inputs for origin and destination to drop down with all availble countries
+- figure out logic for two way flights
+
+Make User and Admin layout different
+
+Redo Login page frontend
+
+Bonus:
+- Make accordions in main page to open seperately 
+- Create search/sort by price, destination, most popular(by number of booked seats)
+- Processing payment
+- Encrypting payment details
