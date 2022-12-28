@@ -1,4 +1,4 @@
-﻿const container = document.querySelector('.container');
+﻿const container = document.getElementById('container');
 const banana = document.querySelector('.planediv');
 const seats = document.querySelectorAll('.row .seat:not(.occupied'); //will only get un occupied seats
 const count = document.getElementById('count'); //number of selected seats
@@ -22,7 +22,7 @@ let SeatPrice = Price.value;
 
 function updateSelectedCount() {
 
-    const selectedSeats = document.querySelectorAll('.row .seat.selected');
+    const selectedSeats = document.querySelectorAll('.row m-3 align-content-center .seat.selected');
 
     const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
 

@@ -9,32 +9,24 @@
 <div class="planediv">
     <div class="form-group">
         <fieldset disabled="">
-            <font size="5">
-                 <b><label asp-for="FlightId" class="form-label"></label></b>
-            </font>
-           <input asp-for="FlightId" style="width:25%" class="form-control" placeholder="Flight ID" id="FlightId"/>
+
+           <input type="hidden" asp-for="FlightId" style="width:25%" class="form-control" placeholder="Flight ID" id="FlightId"/>
            <span asp-validation-for="FlightId" class="text-bg-danger"></span>
         </fieldset>
        <fieldset disabled="">
-           <font size="5">
-              <b><label asp-for="Price" class="form-label"></label></b>
-           </font>
-           <input asp-for="Price" style="width:25%" class="form-control" placeholder="Flight ID" id="Price"/>
+
+           <input type="hidden" asp-for="Price" style="width:25%" class="form-control" placeholder="Flight ID" id="Price"/>
            <span asp-validation-for="Price" class="text-bg-danger"></span>
        </fieldset>
        <fieldset disabled="">
-           <font size="5">
-              <b><label asp-for="NumberOfSeats" class="form-label"></label></b>
-           </font>
-           <input asp-for="NumberOfSeats" style="width:25%" class="form-control" placeholder="Flight ID" id="NumberOfSeats"/>
+
+           <input type="hidden" asp-for="NumberOfSeats" style="width:25%" class="form-control" placeholder="Flight ID" id="NumberOfSeats"/>
            <span asp-validation-for="NumberOfSeats" class="text-bg-danger"></span>
        </fieldset>
 
-       <fieldset disabled="">
-           <font size="5">
-              <b><label asp-for="BookedSeats" class="form-label"></label></b>
-           </font>
-           <input asp-for="BookedSeats" style="width:25%" class="form-control" placeholder="Flight ID" id="BookedSeats"/>
+       <fieldset disabled="" >
+
+           <input type="hidden" asp-for="BookedSeats" style="width:25%" class="form-control" placeholder="Flight ID" id="BookedSeats"/>
            <span asp-validation-for="BookedSeats" class="text-bg-danger"></span>
 
        </fieldset>
@@ -59,22 +51,22 @@
 <script>
     const NumberOfSeats = document.getElementById('NumberOfSeats');
     let SeatNum = NumberOfSeats.value;
-    const planediv = document.createElement('container');
+    const Parent = document.createElement('div');
+    Parent.className = 'parent mt-5';
+    document.body.appendChild(Parent);
+    const Child = document.createElement('div');
     const flightNumber = document.getElementById('FlightId');
     let flightNum = flightNumber.value;
-    planediv.className = 'container';
-    planediv.id='container2';
-    document.body.appendChild(planediv);
     const container2 = document.createElement('div');
-    container2.className = 'container mt-4';
-    container2.id='container';
-    container2.style='height:300px; width:282px;';
-    planediv.appendChild(container2);
+    container2.className = 'Kid';
+    container2.id = 'container';
+    container2.style = 'height:auto; width:210;';
+    Parent.appendChild(container2);
     localStorage.clear();
     for(let j = 0; j < SeatNum/4; j++){
         const row = document.createElement('div');
-        row.className = 'row';
-        row.style='height:35px';
+        row.className = 'row m-3 align-content-center';
+        row.style='height:32px; width:210px;';
         container.appendChild(row);
         for(let i = 0; i < 4; i++){
             const seat = document.createElement('div');
@@ -95,10 +87,5 @@
 <button id="Book" class="btn btn-secondary btn-large" style="width:160px; color:rgba(5, 30, 75, 1)">
       <font size="4">Book</font>
 </button>
-
-
-<p class="text">
-      You have selected <span id="count">0</span> seats for a price of $<span id="total">0</span>
-    </p>
     <script src="~/lib/jquery/dist/SeatScript.js"></script>
 </div>
