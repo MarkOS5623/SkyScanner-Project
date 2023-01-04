@@ -14,8 +14,9 @@ namespace SkyScanner.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(string? userid)
         {
+            ViewData["userid"] = _db.Users.Find(userid).UserId.ToString();
             return View();
         }
 
@@ -49,6 +50,10 @@ namespace SkyScanner.Controllers
             var user = from a in _db.Users
                         where a.Email.Equals(obj.Email)
                         select a.Password;
+            var id = from a in _db.Users
+                       where a.Email.Equals(obj.Email)
+                       select a;
+            var temp = id.ToList();
             if (user == null || obj == null) return RedirectToAction("Login");
             else if(obj.Password == user.FirstOrDefault().ToString())
             {
@@ -64,7 +69,7 @@ namespace SkyScanner.Controllers
                 };
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
                     new ClaimsPrincipal(claimsIdentity), properties);
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Home", new { userid = temp[0].UserId }); 
             }
             return RedirectToAction("Login");
         }
@@ -72,6 +77,14 @@ namespace SkyScanner.Controllers
         {
             IEnumerable<User> objUserList = _db.Users;
             return View(objUserList);
+        }
+
+        public IActionResult AccountInfo(string? userid) //GET method for AccountInfo View
+        {
+            if (userid == null) return NotFound();
+            var userFromDb = _db.Users.Find(userid);
+            if (userFromDb == null) return NotFound();
+            return View(userFromDb);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SkyScanner.Data
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Seat>()
+            modelBuilder.Entity<Seat>() //sets up a one to many relationship between flights and seats
             .HasOne(c => c.Flight).WithMany(c => c.Seats)
             .HasForeignKey(c => c.Flight_num);
 
