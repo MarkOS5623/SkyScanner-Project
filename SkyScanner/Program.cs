@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Collections;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Identity;
+using System.Web.Optimization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+BundleTable.EnableOptimizations = true;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

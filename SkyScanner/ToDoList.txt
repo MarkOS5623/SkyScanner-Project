@@ -1,7 +1,7 @@
 ﻿Compelete booking process:
 - Do payment page
 - save booking to user
-- Add creditcard class to User class
+- Add creditcard class to User class //done
 - Make it impossible to book flights that already took off
 
 Fix button location for seating map

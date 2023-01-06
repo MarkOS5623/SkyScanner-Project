@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SkyScanner.Data;
 using SkyScanner.Models;
+using System.Web.Optimization;
 
 namespace SkyScanner.Controllers
 {
@@ -8,6 +9,7 @@ namespace SkyScanner.Controllers
     {
         private FlightDbContext _db;
         private IHttpContextAccessor _httpContextAccessor;
+        public static bool EnableOptimizations { get; set; }
         public FlightController(FlightDbContext db, IHttpContextAccessor httpContextAccessor) //setting up db context
         {
             _db = db;
@@ -34,30 +36,29 @@ namespace SkyScanner.Controllers
         [HttpPost]
         public IActionResult BookSeat(string[] Seats,string[] Indexes, string? FlightID) //POST method for BookSeat
         {
-            IEnumerable<Flight> objFlightList = _db.Flights;
-            var flightFromDb = _db.Flights.Find(FlightID);
-            int[] array = new int[Indexes.Length];
+            var flightFromDb = _db.Flights.Find(FlightID); //finds the seat's flight
+            int[] array = new int[Indexes.Length]; //int array for seat indexes
             if (flightFromDb != null)
                 for (int i = 0; i < Indexes.Length; i++)
                 {
-                    array[i] = int.Parse(Indexes[i]);
-                    flightFromDb.BookedSeats += Indexes[i];
+                    array[i] = int.Parse(Indexes[i]); //converting seat indexs to ints
+                    flightFromDb.BookedSeats += Indexes[i]; //adding the booked seats to a string
                     flightFromDb.BookedSeats += ',';
                 }
-
             if (Seats.Length > 0 && Seats != null)
             {
-                var SeatFromDb = _db.Seats.Where(x => x.Flight_num == FlightID).ToArray();
-                for (int i = 0, j = 0; i < SeatFromDb.Count(); i++)
+                var SeatFromDb = _db.Seats.Where(x => x.Flight_num == FlightID).ToArray(); //gets all the seats from the flight
+                for (int i = 0, j = 0; i < SeatFromDb.Count() && j < Seats.Length; i++)
                 {
-                    var kmn = SeatFromDb[i].Seat_Num.Trim().Equals(Seats[j].Trim());
-                    if (kmn)
+                    var Temp = SeatFromDb[i].Seat_Num.Trim().Equals(Seats[j].Trim()); //checks if the current seats is the one we are looking for
+                    if (Temp)
                     {
-                        var temp = _db.Seats.Find(Seats[j].Trim());
+                        var temp = _db.Seats.Find(Seats[j].Trim()); //gets the seat
                         if (temp != null)
                         {
-                            temp.Booked = true;
+                            temp.Booked = true; //marks the seat as booked
                             _db.Seats.Update(temp);
+                            j++;
                         }
                     }
                 }

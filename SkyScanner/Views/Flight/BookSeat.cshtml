@@ -1,7 +1,7 @@
 ﻿@model Flight
 
 <head>
-    <link rel="stylesheet" href="~/css/SeatBooking.css" />
+    <link rel="stylesheet" href="~/css/SeatBooking.css" asp-append-version="true" />
 </head>
 
 
@@ -82,10 +82,9 @@
             row.appendChild(seat);
     }}
 </script>
-
+    <script src="~/lib/jquery/dist/SeatScript.js" asp-append-version="true"></script>
 
 <button id="Book" class="btn btn-secondary btn-large" style="width:160px; color:rgba(5, 30, 75, 1)">
       <font size="4">Book</font>
 </button>
-    <script src="~/lib/jquery/dist/SeatScript.js"></script>
 </div>

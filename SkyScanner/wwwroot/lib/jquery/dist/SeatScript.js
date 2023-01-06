@@ -8,6 +8,7 @@ const FlightID = document.getElementById('FlightId');
 localStorage.setItem('selectedFlightID', FlightID.value);
 console.log(localStorage.getItem('selectedFlightID'));
 const seatnumtotal = document.getElementById('NumberOfSeats');
+const BookedSeats = document.getElementById('BookedSeats');
 
 const str = BookedSeats.value;
 const BookedIndexes = str.split(',').map(Number);
@@ -22,23 +23,22 @@ let SeatPrice = Price.value;
 
 function updateSelectedCount() {
 
-    const selectedSeats = document.querySelectorAll('.row m-3 align-content-center .seat.selected');
+    const selectedSeats = document.querySelectorAll('.row .seat.selected');
 
     const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+    console.log(seatsIndex);
 
     const ids = [...selectedSeats].map(x => x.value);
     console.log(ids);
+
     localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
     localStorage.setItem('SeatValues', JSON.stringify(ids));
-    //copy selected seats into arr
-    //map through array
-    //return new array of indexes
 
     const selectedSeatsCount = selectedSeats.length;
 
-    count.innerText = seatsIndex;
-    console.log(seatsIndex);
-    total.innerText = selectedSeatsCount * SeatPrice;
+    //if (seatsIndex.length > 0) {
+        //total.value = selectedSeatsCount * SeatPrice;
+    //}
 }
 
 // get data from localstorage and populate ui

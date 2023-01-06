@@ -106,6 +106,7 @@ namespace SkyScanner.Controllers
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
             var userFromDb = _db.Users.Find(userid);
+            if (userFromDb == null) return NotFound();
             var temp = new CreditCard(userid, userFromDb, cardnum, expM, expY, CVV);
             if (ModelState.IsValid)
             {
