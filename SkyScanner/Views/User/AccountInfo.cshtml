@@ -1,9 +1,44 @@
 ﻿@model User
 
-<div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h4 class="card-title">Danger card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
+
+
+<div class="container p-3">
+    <div class="card text-white bg-primary mb-3" style="max-width: auto;">
+      <div class="card-header">Account Information</div>
+      <div class="card-body">
+          <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Account Details</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1" role="tab">Payment Methods</a>
+              </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade show active p-2" id="home" role="tabpanel">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <p><b>Email: </b> @Html.DisplayFor(model => model.Email)</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>Password: </b> @Html.DisplayFor(model => model.Password)</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>User ID: </b> @Html.DisplayFor(model => model.UserId)</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>First Name: </b> @Html.DisplayFor(model => model.FirstName)</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>Last Name: </b> @Html.DisplayFor(model => model.LastName)</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade p-2" id="profile" role="tabpanel">
+                  
+                </div>
+            </div>
+      </div>
+    </div>
 </div>
+

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using SkyScanner.Data;
 using SkyScanner.Models;
+using System.Globalization;
+
 namespace SkyScanner.Controllers
 {
     [Authorize]
@@ -31,6 +33,7 @@ namespace SkyScanner.Controllers
         public async Task<IActionResult> LogOut()
         { 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            Response.Cookies.Delete("UserIdCookie");
             return RedirectToAction("Login", "User");
         }
 
