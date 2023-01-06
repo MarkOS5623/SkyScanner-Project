@@ -13,10 +13,12 @@ namespace SkyScanner.Controllers
     public class HomeController : Controller
     {
         private FlightDbContext _db;
-        public HomeController(ILogger<HomeController> logger, FlightDbContext db)
+        private IHttpContextAccessor _httpContextAccessor;
+        public HomeController(ILogger<HomeController> logger, FlightDbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _db = db;
+            _httpContextAccessor = httpContextAccessor;
         }
         private readonly ILogger<HomeController> _logger;
 

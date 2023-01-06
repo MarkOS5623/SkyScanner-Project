@@ -9,10 +9,12 @@ namespace SkyScanner.Controllers
 {
     public class UserController : Controller
     {
-        private UserDbContext _db;   
-        public UserController(UserDbContext db)
+        private UserDbContext _db;
+        private IHttpContextAccessor _httpContextAccessor;
+        public UserController(UserDbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Index(string? userid)
         {
@@ -54,6 +56,10 @@ namespace SkyScanner.Controllers
                        where a.Email.Equals(obj.Email)
                        select a;
             var temp = id.ToList();
+            var cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(1);
+            cookieOptions.Path = "/";
+            Response.Cookies.Append("UserIdCookie", temp[0].UserId, cookieOptions);
             if (user == null || obj == null) return RedirectToAction("Login");
             else if(obj.Password == user.FirstOrDefault().ToString())
             {
@@ -79,8 +85,9 @@ namespace SkyScanner.Controllers
             return View(objUserList);
         }
 
-        public IActionResult AccountInfo(string? userid) //GET method for AccountInfo View
+        public IActionResult AccountInfo() //GET method for AccountInfo View
         {
+            var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
             var userFromDb = _db.Users.Find(userid);
             if (userFromDb == null) return NotFound();

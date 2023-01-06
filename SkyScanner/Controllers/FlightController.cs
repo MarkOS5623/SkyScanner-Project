@@ -7,10 +7,12 @@ namespace SkyScanner.Controllers
     public class FlightController : Controller
     {
         private FlightDbContext _db;
-        public FlightController(FlightDbContext db) //setting up db context
+        private IHttpContextAccessor _httpContextAccessor;
+        public FlightController(FlightDbContext db, IHttpContextAccessor httpContextAccessor) //setting up db context
         {
             _db = db;
             _db.Seats = db.Seats;
+            this._httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Index()
         {
