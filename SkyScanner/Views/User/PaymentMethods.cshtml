@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CreditCard>
+
+<div class="container p-3">
+    <div class="card text-white bg-primary mb-3" style="max-width: auto;">
+        <div class="card-header">Account Information</div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Payment Methods</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="true" role="tab">Add New Cards</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade show active p-2" id="home" role="tabpanel">
+                    <ul class="list-group">
+                        @if(Model != null)
+                        @foreach(var obj in Model){
+                        <li class="list-group-item">
+                           <p><b>Card Number: </b> @obj.CardNumber</p>
+                        </li>
+                        <li class="list-group-item">
+                           <p><b>Exp Date: </b> @obj.ExpMonth/@obj.ExpYear</p>
+                        </li>
+                        <li class="list-group-item">
+                           <p><b>Card CVV: </b> @obj.CVV</p>
+                        </li>
+                        }
+                    </ul>
+                </div>
+                <div class="tab-pane fade show p-2" id="profile" role="tabpanel">
+                    <ul class="list-group">
+                         <form method="post">
+                             <div class="container">
+                               <font size="4" color="white">
+                                    <label>Card Number</label>
+                                    <input type="text" name="cardnum" />
+                                    <br />
+                                    <label>Exp Month</label>
+                                    <input type="number" name="expM" />
+                                    <br />
+                                    <label>Exp Year</label>
+                                    <input type="number" name="expY"/>
+                                    <br />
+                                    <label>CVV</label>
+                                    <input type="number" name="CVV" />
+                                    <br />
+                                    <button type="submit" style="color:rgba(5, 30, 75, 1); width:160px;background-color:cyan" class="btn btn-large">
+                                        <font size="4">Add</font>
+                                    </button>
+                               </font>
+                            </div>
+                         </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

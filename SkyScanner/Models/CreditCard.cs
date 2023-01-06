@@ -17,5 +17,18 @@ namespace SkyScanner.Models
         public int ExpMonth { get; set; }
         public int ExpYear { get; set; }
         public int CVV { get; set; }
+        public CreditCard()
+        {
+
+        }
+        public CreditCard(string user_ID, User user, string cardNumber, int expMonth, int expYear, int cVV)
+        {
+            User_ID = user_ID;
+            User = user;
+            CardNumber = cardNumber;
+            ExpMonth = expMonth;
+            ExpYear = expYear;
+            CVV = cVV;
+        }
     }
 }

@@ -84,7 +84,37 @@ namespace SkyScanner.Controllers
             IEnumerable<User> objUserList = _db.Users;
             return View(objUserList);
         }
+        public IActionResult PaymentMethods() 
+        {
+            var userid = Request.Cookies["UserIdCookie"];
+            if (userid == null) return NotFound();
+            if (_db.CreditCards.Count() > 0)
+            {
+                var CardFromDb = from a in _db.CreditCards
+                                 where a.User_ID.Equals(userid)
+                                 select a;
+                if (CardFromDb == null) return NotFound();
+                return View(CardFromDb);
+            }
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PaymentMethods(string cardnum, int expM, int expY, int CVV) //POST method for AddFlight
+        {
+            var userid = Request.Cookies["UserIdCookie"];
+            if (userid == null) return NotFound();
+            var userFromDb = _db.Users.Find(userid);
+            var temp = new CreditCard(userid, userFromDb, cardnum, expM, expY, CVV);
+            if (ModelState.IsValid)
+            {
+                _db.CreditCards.Add(temp);
+                _db.SaveChanges();
+                return RedirectToAction("PaymentMethods");
+            }
+            return View();
+        }
         public IActionResult AccountInfo() //GET method for AccountInfo View
         {
             var userid = Request.Cookies["UserIdCookie"];

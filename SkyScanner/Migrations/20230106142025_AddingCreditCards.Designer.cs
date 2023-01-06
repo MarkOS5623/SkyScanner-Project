@@ -11,8 +11,8 @@ using SkyScanner.Data;
 namespace SkyScanner.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20221221171452_UpdateUserDb")]
-    partial class UpdateUserDb
+    [Migration("20230106142025_AddingCreditCards")]
+    partial class AddingCreditCards
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,31 @@ namespace SkyScanner.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SkyScanner.Models.CreditCard", b =>
+                {
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CVV")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User_ID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("CardNumber");
+
+                    b.HasIndex("User_ID");
+
+                    b.ToTable("CreditCards");
+                });
 
             modelBuilder.Entity("SkyScanner.Models.User", b =>
                 {
@@ -59,6 +84,22 @@ namespace SkyScanner.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SkyScanner.Models.CreditCard", b =>
+                {
+                    b.HasOne("SkyScanner.Models.User", "User")
+                        .WithMany("CreditCards")
+                        .HasForeignKey("User_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SkyScanner.Models.User", b =>
+                {
+                    b.Navigation("CreditCards");
                 });
 #pragma warning restore 612, 618
         }

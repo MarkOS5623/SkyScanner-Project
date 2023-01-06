@@ -30,6 +30,7 @@ namespace SkyScanner.Models
         public bool Admin { get; set; } = false;
         [Required]
         public bool KeepLoggedIn { get; set; } = false;
-
+        [Required]
+        public List<CreditCard> CreditCards { get; set; }
     }
 }
