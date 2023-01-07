@@ -72,6 +72,11 @@ namespace SkyScanner.Controllers
             return View();
         }
 
+        public IActionResult Booking() //GET method for AddFlight
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddFlight(Flight obj) //POST method for AddFlight
