@@ -63,9 +63,9 @@ namespace SkyScanner.Controllers
                     }
                 }
                 _db.SaveChanges();
-                return RedirectToAction("FlightList");
+                return RedirectToAction("Booking", "User");
             }
-            return RedirectToAction("FlightList");
+            return RedirectToAction("BookSeat", flightFromDb.FlightId);
         }
         public IActionResult AddFlight() //GET method for AddFlight
         {

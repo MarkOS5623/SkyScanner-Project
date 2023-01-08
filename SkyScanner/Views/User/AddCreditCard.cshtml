@@ -48,7 +48,7 @@
                 </div>
                 <div class="row center">
                     <div class="container m-2" style="align-content:center">
-                        <a asp-controller="Flight" asp-action="FlightList" class="btn btn-secondary btn-sm" style="width:160px;">
+                        <a asp-controller="User" asp-action="PaymentMethods" class="btn btn-secondary btn-sm" style="width:160px;">
                             <font size="4" color="white">Cancel</font>
                         </a>
                         <button type="submit" class="btn btn-primary btn-sm" style="width:160px;">
@@ -58,5 +58,7 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" asp-for="User_ID" style="width:100%" class="form-control" placeholder="23-30" value="321"/>
+        <span asp-validation-for="User_ID" class="text-bg-danger"></span>
     </form>
 </div>

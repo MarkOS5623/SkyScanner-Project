@@ -22,14 +22,19 @@ namespace SkyScanner.Controllers
             return View();
         }
 
-        public IActionResult AddUser() //GET method for AddFlight
+        public IActionResult AddUser() //GET method for AddUser
+        {
+            return View();
+        }
+
+        public IActionResult Booking() //GET method for Booking
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddUser(User obj) //POST method for AddFlight
+        public IActionResult AddUser(User obj) //POST method for AddUser
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +116,11 @@ namespace SkyScanner.Controllers
             obj.User_ID = userid;
             var temp = _db.Users.Find(userid);
             if (temp != null)
+            {
                 obj.User = temp;
+            }
+            ModelState.ClearValidationState("User");
+            ModelState.MarkFieldValid("User");
             if (ModelState.IsValid)
             {
                 _db.CreditCards.Add(obj);

@@ -8,6 +8,10 @@ namespace SkyScanner.Models
 {
     public class User
     {
+        public User()
+        {
+
+        }
         [Required]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         [StringLength(50, MinimumLength = 4)]
@@ -32,5 +36,11 @@ namespace SkyScanner.Models
         public bool KeepLoggedIn { get; set; } = false;
         [Required]
         public List<CreditCard> CreditCards { get; set; }
+
+        public ValidationResult IsValid()
+        {
+
+            return ValidationResult.Success;
+        }
     }
 }

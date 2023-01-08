@@ -9,11 +9,11 @@ namespace SkyScanner.Models
 {
     public class CreditCard
     {
+        public virtual User User { get; set; }
         public string User_ID { get; set; }
         [ForeignKey("User_ID")]
-        public virtual User User { get; set; }
         [Key]
-        [RegularExpression("^[0-9]{9}$", ErrorMessage = "Card number is not valid")]
+        [RegularExpression("^[0-9]{16}$", ErrorMessage = "Card number is not valid")]
         [StringLength(16, MinimumLength = 16)]
         public string CardNumber { get; set; }
         [Range(1, 12, ErrorMessage = "Value must be between 1 to 12")]
@@ -24,7 +24,6 @@ namespace SkyScanner.Models
         public int CVV { get; set; }
         public CreditCard()
         {
-
         }
         public CreditCard(string user_ID, User user, string cardNumber, int expMonth, int expYear, int cVV)
         {
