@@ -1,0 +1,27 @@
+﻿@model IEnumerable<string>
+
+<div class="container p-3">
+    <div class="card text-white bg-primary mb-3" style="max-width: 800px;">
+        <div class="card-header">Booking Details</div>
+        <div class="card-body">
+            @if (Model != null)
+                @foreach (var obj in Model)
+                {
+                    <ul class="list-group p-3">
+                        <li class="list-group-item">
+                            <p><b>Seat Number: </b> @obj[0]@obj[1]</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>Flight Number: </b> @obj[3]@obj[4]@obj[5]@obj[6]</p>
+                        </li>
+                    </ul>
+                }
+            
+            <ul class="list-group p-3 text-center">
+                <a asp-controller="User" asp-action="Payment" style="width:auto; color:rgba(255, 255, 255, 1)">
+                    <font size="5">Procced To Payment</font>
+                </a>
+            </ul>
+        </div>
+    </div>
+</div>

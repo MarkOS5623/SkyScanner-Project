@@ -25,6 +25,13 @@ namespace SkyScanner.Controllers
             IEnumerable<Flight> objUserList = _db.Flights;
             return View(objUserList);
         }
+        [HttpGet]
+        public IActionResult Booking(string Seats) //GET method for Booking
+        {
+            List<string> list = Seats.Split(',').ToList(); 
+            return View(list);
+        }
+
         public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
         {
             if (flightid == null) return NotFound();
@@ -63,7 +70,7 @@ namespace SkyScanner.Controllers
                     }
                 }
                 _db.SaveChanges();
-                return RedirectToAction("Booking", "User");
+                return RedirectToAction("Booking", Seats);
             }
             return RedirectToAction("BookSeat", flightFromDb.FlightId);
         }

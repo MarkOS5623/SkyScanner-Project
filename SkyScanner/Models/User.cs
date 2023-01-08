@@ -36,11 +36,5 @@ namespace SkyScanner.Models
         public bool KeepLoggedIn { get; set; } = false;
         [Required]
         public List<CreditCard> CreditCards { get; set; }
-
-        public ValidationResult IsValid()
-        {
-
-            return ValidationResult.Success;
-        }
     }
 }

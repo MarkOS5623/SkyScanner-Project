@@ -26,12 +26,13 @@ namespace SkyScanner.Controllers
         {
             return View();
         }
-
-        public IActionResult Booking() //GET method for Booking
+        
+        public IActionResult Payment() //GET method for Payment
         {
-            return View();
+            var userid = Request.Cookies["UserIdCookie"];
+            var cardsFromDb = _db.CreditCards.Where(x => x.User_ID == userid).ToList();
+            return View(cardsFromDb);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddUser(User obj) //POST method for AddUser
@@ -106,6 +107,32 @@ namespace SkyScanner.Controllers
         public IActionResult AddCreditCard()
         {
             return View();
+        }
+        public IActionResult AddCreditCardPayment()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddCreditCardPayment(CreditCard obj) //POST method for AddFlight
+        {
+            var userid = Request.Cookies["UserIdCookie"];
+            if (userid == null) return NotFound();
+            obj.User_ID = userid;
+            var temp = _db.Users.Find(userid);
+            if (temp != null)
+            {
+                obj.User = temp;
+            }
+            ModelState.ClearValidationState("User");
+            ModelState.MarkFieldValid("User");
+            if (ModelState.IsValid)
+            {
+                _db.CreditCards.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Home","Index");
+            }
+            return View(obj);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

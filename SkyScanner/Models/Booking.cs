@@ -18,5 +18,7 @@ namespace SkyScanner.Models
         public int BookingID { get; set; }
         [Required]
         public List<string> SeatsNum { get; set; }
+        public DateTime DepartureDate { get; set; }
+        public DateTime ArrivalDate { get; set; }
     }
 }

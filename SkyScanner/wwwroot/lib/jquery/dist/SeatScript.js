@@ -1,4 +1,5 @@
-﻿const container = document.getElementById('container');
+﻿localStorage.clear();
+const container = document.getElementById('container');
 const banana = document.querySelector('.planediv');
 const seats = document.querySelectorAll('.row .seat:not(.occupied'); //will only get un occupied seats
 const count = document.getElementById('count'); //number of selected seats
@@ -80,6 +81,7 @@ function DepopulateUI() {
 
 banana.addEventListener('click', (E) => {
     E.preventDefault();
+    DepopulateUI();
     $.ajax({
         type: "POST",
         dataType: "json; charset=utf-8",
@@ -89,10 +91,9 @@ banana.addEventListener('click', (E) => {
             Indexes: JSON.parse(localStorage.getItem('selectedSeats')),
             FlightID: JSON.parse(localStorage.getItem('selectedFlightID'))
            }
-        });
-    DepopulateUI();
-    localStorage.clear();
-    window.location = "/Flight/FlightList", true;
+    });
+    if (JSON.parse(localStorage.getItem('SeatValues')).length > 0)
+    window.location = "/Flight/Booking?Seats=" + JSON.parse(localStorage.getItem('SeatValues'));
 });
 
 // Seat click event

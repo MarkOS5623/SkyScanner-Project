@@ -1,0 +1,34 @@
+﻿@model IEnumerable<CreditCard>
+
+<div class="container p-3">
+    <div class="card text-white bg-primary mb-3" style="max-width: auto;">
+        <div class="card-header">Payment Information</div>
+        <div class="card-body">
+            @if (Model != null)
+                @foreach (var obj in Model)
+                {
+                    <ul class="list-group p-3">
+                        <li class="list-group-item">
+                            <p><b>Card Number: </b> @obj.CardNumber</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>Exp Date: </b> @obj.ExpMonth/@obj.ExpYear</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p><b>Card CVV: </b> @obj.CVV</p>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-sm">
+                                <font size="4">Pay</font>
+                            </a>
+                         </li>
+                    </ul>
+                }
+            <ul class="list-group p-3 text-center">
+                <a asp-controller="User" asp-action="AddCreditCard" style="width:auto; color:rgba(255, 255, 255, 1)">
+                    <font size="8"><i class="bi bi-plus-circle"></i> </font>
+                </a>
+            </ul>
+        </div>
+    </div>
+</div>

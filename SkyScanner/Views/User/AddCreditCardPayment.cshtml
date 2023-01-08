@@ -1,0 +1,64 @@
+﻿@model CreditCard
+
+<div class="parent">
+    <form method="post">
+        <div class="child" style="width:450px;">
+            <div class="row" style="width:100%;">
+                <div class="col">
+                    <div class="container">
+                        <br />
+
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="CardNumber" class="form-label"> </label>
+                            </font>
+                            <input asp-for="CardNumber" style="width:305px;" class="form-control" placeholder="1234567812345678" />
+                            <span asp-validation-for="CardNumber" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="row ms-xl-6" style="width:430px;">
+                            <div class="col m-0" style="width:115px;">
+                                <div class="container m-0" style="width:115px;">
+                                    <font size="4" color="white">
+                                        <label asp-for="ExpMonth" class="form-label"></label>
+                                    </font>
+                                    <input asp-for="ExpMonth" style="width:100%" class="form-control" placeholder="1-12" />
+                                    <span asp-validation-for="ExpMonth" class="text-bg-danger"></span>
+                                </div>
+                                <div class="container m-0" style="width:115px;">
+                                    <font size="4" color="white">
+                                        <label asp-for="CVV" class="form-label"></label>
+                                    </font>
+                                    <input asp-for="CVV" class="form-control" placeholder="100-999" />
+                                    <span asp-validation-for="CVV" class="text-bg-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col m-0" style="width:115px;">
+                                <div class="container m-0" style="width:115px;">
+                                    <font size="4" color="white">
+                                        <label asp-for="ExpYear" class="form-label ms-lg-auto"></label>
+                                    </font>
+                                    <input asp-for="ExpYear" style="width:100%" class="form-control" placeholder="23-30" />
+                                    <span asp-validation-for="ExpYear" class="text-bg-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="container m-2" style="align-content:center">
+                        <a asp-controller="User" asp-action="Payment" class="btn btn-secondary btn-sm" style="width:160px;">
+                            <font size="4" color="white">Cancel</font>
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-sm" style="width:160px;">
+                            <font size="4">Pay</font>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="User_ID" style="width:100%" class="form-control" placeholder="23-30" value="321"/>
+        <span asp-validation-for="User_ID" class="text-bg-danger"></span>
+    </form>
+</div>
