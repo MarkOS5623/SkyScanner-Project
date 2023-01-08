@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Flight>
     
-
 @{
     ViewData["Title"] = "Flight List";
 }
@@ -11,8 +10,8 @@
             <h1 style="color:darkcyan">Flight List</h1>
         </div>
         <div class = "col-6 text-end ">
-            <a asp-controller="Flight" asp-action="AddFlight" type="button" class="btn btn-lg" style="background-color:rgba(5, 30, 75, 1)">
-                <font color="darkcyan"><i class="bi bi-plus-circle"></i> Add Flight</font>
+            <a asp-controller="Flight" asp-action="AddFlight" type="button" class="btn btn-primary btn-large" style="width:160px;height:40px;">
+                <font size="4" color="darkcyan"><i class="bi bi-plus-circle"></i> Add Flight</font>
             </a>
         </div>
     </div>

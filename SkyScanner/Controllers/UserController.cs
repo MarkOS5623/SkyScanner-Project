@@ -98,24 +98,29 @@ namespace SkyScanner.Controllers
             }
             return View();
         }
-
+        public IActionResult AddCreditCard()
+        {
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PaymentMethods(string cardnum, int expM, int expY, int CVV) //POST method for AddFlight
+        public IActionResult AddCreditCard(CreditCard obj) //POST method for AddFlight
         {
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
-            var userFromDb = _db.Users.Find(userid);
-            if (userFromDb == null) return NotFound();
-            var temp = new CreditCard(userid, userFromDb, cardnum, expM, expY, CVV);
+            obj.User_ID = userid;
+            var temp = _db.Users.Find(userid);
+            if (temp != null)
+                obj.User = temp;
             if (ModelState.IsValid)
             {
-                _db.CreditCards.Add(temp);
+                _db.CreditCards.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("PaymentMethods");
             }
-            return View();
+            return View(obj);
         }
+
         public IActionResult AccountInfo() //GET method for AccountInfo View
         {
             var userid = Request.Cookies["UserIdCookie"];
