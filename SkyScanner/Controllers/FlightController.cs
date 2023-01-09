@@ -10,32 +10,38 @@ namespace SkyScanner.Controllers
         private FlightDbContext _db;
         private IHttpContextAccessor _httpContextAccessor;
         public static bool EnableOptimizations { get; set; }
+        
         public FlightController(FlightDbContext db, IHttpContextAccessor httpContextAccessor) //setting up db context
         {
             _db = db;
             _db.Seats = db.Seats;
             this._httpContextAccessor = httpContextAccessor;
-            var Admin = Request.Cookies["AdminCookie"];
-            ViewData["Admin"] = Admin;
         }
         public IActionResult Index()
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
         public IActionResult FlightList() //GET method for FlightList View
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             IEnumerable<Flight> objUserList = _db.Flights;
             return View(objUserList);
         }
         [HttpGet]
         public IActionResult Booking(string Seats) //GET method for Booking
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             List<string> list = Seats.Split(',').ToList(); 
             return View(list);
         }
-
         public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             if (flightid == null) return NotFound();
             var flightFromDb = _db.Flights.Find(flightid);
             if (flightFromDb == null) return NotFound();
@@ -78,11 +84,15 @@ namespace SkyScanner.Controllers
         }
         public IActionResult AddFlight() //GET method for AddFlight
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
 
         public IActionResult Booking() //GET method for AddFlight
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
 
@@ -104,6 +114,8 @@ namespace SkyScanner.Controllers
 
         public IActionResult EditFlight(string? flightid) //GET method for EditFlight
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             if (flightid == null) return NotFound();
             var flightFromDb = _db.Flights.Find(flightid);
             if(flightFromDb == null) return NotFound();
@@ -124,6 +136,8 @@ namespace SkyScanner.Controllers
         }
         public IActionResult DeleteFlight(string? flightid) //GET method for DeleteFlight
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             if (flightid == null) return NotFound();
             var flightFromDb = _db.Flights.Find(flightid);
             if (flightFromDb == null) return NotFound();

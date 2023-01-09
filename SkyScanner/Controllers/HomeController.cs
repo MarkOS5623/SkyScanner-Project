@@ -20,7 +20,7 @@ namespace SkyScanner.Controllers
         {
             _logger = logger;
             _db = db;
-            _httpContextAccessor = httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor;  
         }
         private readonly ILogger<HomeController> _logger;
 

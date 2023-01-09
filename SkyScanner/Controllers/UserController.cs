@@ -20,16 +20,22 @@ namespace SkyScanner.Controllers
         public IActionResult Index(string? userid)
         {
             ViewData["userid"] = _db.Users.Find(userid).UserId.ToString();
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
 
         public IActionResult AddUser() //GET method for AddUser
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
         
         public IActionResult Payment() //GET method for Payment
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             var userid = Request.Cookies["UserIdCookie"];
             var cardsFromDb = _db.CreditCards.Where(x => x.User_ID == userid).ToList();
             return View(cardsFromDb);
@@ -111,12 +117,16 @@ namespace SkyScanner.Controllers
         }
         public IActionResult UserList()
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             IEnumerable<User> objUserList = _db.Users;
             return View(objUserList);
         }
         
         public IActionResult MyBookings()
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
             if (_db.Bookings.Count() > 0)
@@ -131,6 +141,8 @@ namespace SkyScanner.Controllers
         }
         public IActionResult PaymentMethods() 
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
             if (_db.CreditCards.Count() > 0)
@@ -145,10 +157,14 @@ namespace SkyScanner.Controllers
         }
         public IActionResult AddCreditCard()
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
         public IActionResult AddCreditCardPayment()
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             return View();
         }
         [HttpPost]
@@ -202,6 +218,8 @@ namespace SkyScanner.Controllers
 
         public IActionResult AccountInfo() //GET method for AccountInfo View
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
             var userFromDb = _db.Users.Find(userid);
