@@ -1,15 +1,14 @@
 ﻿@model Flight
 
+@{
+    Session["UserName"] = UserNameTextBox.Text;
+}
 <head>
     <link rel="stylesheet" href="~/css/SeatBooking.css" asp-append-version="true" />
 </head>
-
-
-
 <div class="planediv">
     <div class="form-group">
-        <fieldset disabled="">
-
+        <fieldset disabled=""> 
            <input type="hidden" asp-for="FlightId" style="width:25%" class="form-control" placeholder="Flight ID" id="FlightId"/>
            <span asp-validation-for="FlightId" class="text-bg-danger"></span>
         </fieldset>

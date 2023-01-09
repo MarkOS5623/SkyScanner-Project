@@ -29,7 +29,7 @@ namespace SkyScanner.Models
         [DisplayName("Flight Number")]
         public string FlightId { get; set; }
         [Required]
-        [DisplayName("TakeOff Date")]
+        [DisplayName("Take Off Date")]
         public DateTime TakeOffDate { get; set; }
         [Required]
         [DisplayName("Landing Date")]

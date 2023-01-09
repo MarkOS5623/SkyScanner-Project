@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 using SkyScanner.Data;
 using SkyScanner.Models;
+using System.Net;
 using System.Web.Optimization;
 
 namespace SkyScanner.Controllers
@@ -53,13 +57,20 @@ namespace SkyScanner.Controllers
         {
             var flightFromDb = _db.Flights.Find(FlightID); //finds the seat's flight
             int[] array = new int[Indexes.Length]; //int array for seat indexes
-            if (flightFromDb != null)
+            if (flightFromDb != null) {
                 for (int i = 0; i < Indexes.Length; i++)
                 {
                     array[i] = int.Parse(Indexes[i]); //converting seat indexs to ints
                     flightFromDb.BookedSeats += Indexes[i]; //adding the booked seats to a string
                     flightFromDb.BookedSeats += ',';
                 }
+            }
+
+            //Setting up a cookie that holds the Current Booking's seats
+            if (Request.Cookies["BookingCookie"] == null)
+            Response.Cookies.Append("BookingCookie", Seats.ToString());
+            //Setting up a cookie to check later if the payment will be complete
+            Response.Cookies.Append("CompleteCookie", "False");
             if (Seats.Length > 0 && Seats != null)
             {
                 var SeatFromDb = _db.Seats.Where(x => x.Flight_num == FlightID).ToArray(); //gets all the seats from the flight
@@ -83,13 +94,6 @@ namespace SkyScanner.Controllers
             return RedirectToAction("BookSeat", flightFromDb.FlightId);
         }
         public IActionResult AddFlight() //GET method for AddFlight
-        {
-            var Admin = Request.Cookies["AdminCookie"];
-            ViewData["Admin"] = Admin;
-            return View();
-        }
-
-        public IActionResult Booking() //GET method for AddFlight
         {
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;

@@ -24,7 +24,15 @@ namespace SkyScanner.Controllers
             ViewData["Admin"] = Admin;
             return View();
         }
-
+        public IActionResult ConfirmBooking()
+        {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
+            var Seats = Request.Cookies["BookingCookie"];
+            ViewData["Seats"] = Seats;
+            var Complete = Request.Cookies["CompleteCookie"];
+            return View();
+        }
         public IActionResult AddUser() //GET method for AddUser
         {
             var Admin = Request.Cookies["AdminCookie"];

@@ -24,7 +24,6 @@ namespace SkyScanner.Models
         [RegularExpression("^[0-9]{4}$")]
         [StringLength(4, MinimumLength = 4)]
         public string UserId { get; set; }
-
         [Required]
         public bool Admin { get; set; } = false;
         [Required]
