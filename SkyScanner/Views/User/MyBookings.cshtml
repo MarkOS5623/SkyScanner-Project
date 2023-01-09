@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Booking>
+
+<div class="container p-3">
+    <div class="card text-white bg-primary mb-3" style="max-width: auto;">
+        <div class="card-body">
+    <table class="table table-primary table-striped" style="width:100%">
+        <thead class="table-info">
+            <tr>
+                <th>
+                    Booking ID
+                </th>
+                <th>
+                    Origin
+                </th>
+                <th>
+                    Destination
+                </th>
+                <th>
+                    Number of Seats
+                </th>
+                <th>
+                    Two Way
+                </th>
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model!=null)
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>
+                        @obj.BookingID
+                    </td>
+                    <td>
+                        @obj.Origin
+                    </td>
+                    <td>
+                        @obj.Destination
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        @obj.TwoWay
+                    </td>
+                    <td>
+                        <div class="btn-sm" role="group">
+                            <a asp-controller="User" asp-action="MyBookingsEdit" asp-route-flightid="@obj.BookingID" type="button" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-sm" role="group">
+                            <a asp-controller="Flight" asp-action="MyBookingsDetails" asp-route-flightid="@obj.BookingID" type="button" class="btn btn-secondary btn-sm">
+                                <i class="bi bi-trash-fill"></i> Details
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+            <ul class="list-group p-3 text-center">
+                <a asp-controller="Home" asp-action="Index" style="width:auto; color:rgba(255, 255, 255, 1)">
+                    <font size="8"><i class="bi bi-plus-circle"></i> </font>
+                </a>
+            </ul>
+        </div>
+    </div>
+</div>

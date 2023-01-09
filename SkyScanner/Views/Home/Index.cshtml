@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<Flight>
-@{
-    ViewData["Title"] = "Home Page";
-}
 
 <form class="m-5">
     <div class="m-5 p-2">
@@ -46,16 +43,16 @@
                                     <b>Price: </b> @obj.Price<b>₪</b>
                                     </li>
                                     <li class="list-group-item">
-                                    <p style="color:darkgreen"><b>Arrival Date: </b> @obj.DepartureDate.Day/@obj.DepartureDate.Month/@obj.DepartureDate.Year</p>
+                                       <p style="color:darkgreen"><b>Arrival Date: </b> @obj.TakeOffDate.Day/@obj.TakeOffDate.Month/@obj.TakeOffDate.Year</p>
                                     </li>
                                     <li class="list-group-item">
-                                    <p style="color:darkgreen"><b>Arrival Time: </b> @obj.DepartureDate.Hour:@obj.DepartureDate.Minute</p>
+                                        <p style="color:darkgreen"><b>Arrival Time: </b> @obj.TakeOffDate.Hour:@obj.TakeOffDate.Minute</p>
                                     </li>
                                     <li class="list-group-item">
-                                    <p style="color:darkred"><b>Departure Date: </b> @obj.ReturnDate.Day/@obj.ReturnDate.Month/@obj.ReturnDate.Year</p>
+                                       <p style="color:darkred"><b>Departure Date: </b> @obj.LandingDate.Day/@obj.LandingDate.Month/@obj.LandingDate.Year</p>
                                     </li>
                                     <li class="list-group-it    em">
-                                    <p style="color:darkred"><b>Departure Time: </b> @obj.ReturnDate.Hour:@obj.ReturnDate.Minute</p>
+                                        <p style="color:darkred"><b>Departure Time: </b> @obj.LandingDate.Hour:@obj.LandingDate.Minute</p>
                                     </li>
                                    </font>
                                     <div class="btn-sm" role="group">

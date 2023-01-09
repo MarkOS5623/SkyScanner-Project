@@ -1,14 +1,6 @@
 ﻿@model Flight
 
-<script type="text/javascript">
-    function EnableDisableTextBox(TwoCheck) {
-        var DepartureDateInput = document.getElementById("DepartureDateInput");
-        DepartureDateInput.disabled = TwoCheck.checked ? false : true;
-        if (!DepartureDateInput.disabled) {
-            DepartureDateInput.focus();
-        }
-    }
-</script>
+
 
 <div class="parent">
     <form method="post">
@@ -48,12 +40,6 @@
            <input asp-for="Price" style="width:100%" class="form-control" placeholder="Price"/>
             <span asp-validation-for="Price" class="text-bg-danger"></span>
         </div>
-        <div class="container mt-3">
-            <input class="form-check-input" type="checkbox" value="" id="TwoCheck" onclick="EnableDisableTextBox(this)">
-            <label class="form-check-label" for="flexCheckDefault">
-             <font size="4" color="white">Two Way Flight</font>
-            </label>
-        </div>
         <input type="hidden" asp-for="Seats" styly="tra"/>
         <span asp-validation-for="Seats" class="text-bg-danger"></span>
         <input type="hidden" asp-for="BookedSeats" styly="tra" />
@@ -72,18 +58,18 @@
 
              <div class="container">
                <font size="4" color="white">
-                 <label asp-for="DepartureDate" class="form-label"></label>
+               <label asp-for="TakeOffDate" class="form-label"></label>
                </font>
-               <input asp-for="DepartureDate" style="width:100%" class="form-control" placeholder="Number Of Seats"/>
-               <span asp-validation-for="DepartureDate" class="text-bg-danger"></span>
+               <input asp-for="TakeOffDate" style="width:100%" class="form-control" placeholder="Number Of Seats"/>
+                            <span asp-validation-for="TakeOffDate" class="text-bg-danger"></span>
              </div>
 
              <div class="container">
                <font size="4" color="white">
-                 <label for="DepartureDateInput" asp-for="ReturnDate" class="form-label"></label>
+               <label for="DepartureDateInput" asp-for="LandingDate" class="form-label"></label>
                </font>
-               <input id="DepartureDateInput" asp-for="ReturnDate" style="width:100%" class="form-control" placeholder="Number Of Seats" disabled="disabled"/>
-               <span asp-validation-for="ReturnDate" class="text-bg-danger"></span>
+               <input id="DepartureDateInput" asp-for="LandingDate" style="width:100%" class="form-control" placeholder="Number Of Seats"/>
+               <span asp-validation-for="LandingDate" class="text-bg-danger"></span>
              </div>
 
              <div class="container">

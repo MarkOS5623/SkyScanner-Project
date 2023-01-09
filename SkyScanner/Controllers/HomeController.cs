@@ -26,6 +26,8 @@ namespace SkyScanner.Controllers
 
         public IActionResult Index()
         {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
             IEnumerable<Flight> objUserList = _db.Flights;
             return View(objUserList);
         }
@@ -34,6 +36,7 @@ namespace SkyScanner.Controllers
         { 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             Response.Cookies.Delete("UserIdCookie");
+            Response.Cookies.Delete("AdminCookie");
             return RedirectToAction("Login", "User");
         }
 

@@ -11,14 +11,23 @@ namespace SkyScanner.Models
 {
     public class Booking
     {
+        public Booking()
+        {
+                
+        }
+        public string Origin { get; set; }
+        public string Destination { get; set; }
+        [RegularExpression("^[0-9]{4}$")]
         public string User_ID { get; set; }
         [ForeignKey("User_ID")]
         public virtual User User { get; set; }
         [Key]
+        [Range(1000,9999)]
         public int BookingID { get; set; }
         [Required]
-        public List<string> SeatsNum { get; set; }
-        public DateTime DepartureDate { get; set; }
-        public DateTime ArrivalDate { get; set; }
+        [StringLength(1000)]
+        public string? BookedSeats { get; set; }
+        public bool TwoWay { get; set; } = false;
+
     }
 }

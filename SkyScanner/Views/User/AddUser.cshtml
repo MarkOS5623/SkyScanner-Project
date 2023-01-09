@@ -1,4 +1,4 @@
-﻿@model SkyScanner.Models.User;
+﻿@model User;
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
@@ -26,43 +26,18 @@
     </div>
 
     <div class="form-group">
-      <font size="5">
-           <b>
-                <label asp-for="FirstName" class="form-label mt-4"></label>
-           </b>
-       </font>
-      <input asp-for="FirstName" style="width:25%" class="form-control" placeholder="John"/>
-      <span asp-validation-for="FirstName" class="text-bg-danger"></span>
-    </div>
-
-    <div class="form-group">
-      <font size="5">
-           <b>
-                <label asp-for="LastName" class="form-label mt-4"></label>
-           </b>
-       </font>
-      <input asp-for="LastName" style="width:25%" class="form-control" placeholder="Doe"/>
-      <span asp-validation-for="LastName" class="text-bg-danger"></span>
-    </div>
-
-    <div class="form-group">
-      <font size="5">
-           <b>
-                <label asp-for="UserId" class="form-label mt-4"></label>
-           </b>
-       </font>
-      <input asp-for="UserId" style="width:25%" class="form-control" placeholder="Airline"/>
+      <input  type="hidden" asp-for="UserId" style="width:25%" class="form-control" placeholder="Airline" value="1234"/>
       <span asp-validation-for="UserId" class="text-bg"></span>
     </div>
 
     <br />
     <button type="submit" class="btn btn-primary btn-sm" style="width:150px">
-        <font size="4">
+        <font size="4" color="white">
             Register
         </font>
     </button>
-    <a asp-controller="User" asp-action="Login" class="btn btn-danger btn-sm" style="width:150px">
-        <font size="4">
+    <a asp-controller="User" asp-action="Login" class="btn btn-secondary btn-sm" style="width:150px">
+        <font size="4" color="white">
             Cancel
         </font>
     </a>

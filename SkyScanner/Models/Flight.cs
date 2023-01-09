@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-
+using System.ComponentModel;
 
 namespace SkyScanner.Models
 {
@@ -27,15 +26,18 @@ namespace SkyScanner.Models
         [Key]
         [RegularExpression("^[0-9]{4}$", ErrorMessage = "Flight ID must only contain 4 numbers")]
         [StringLength(4, MinimumLength = 4)]
+        [DisplayName("Flight Number")]
         public string FlightId { get; set; }
         [Required]
-
-        public DateTime DepartureDate { get; set; }
+        [DisplayName("TakeOff Date")]
+        public DateTime TakeOffDate { get; set; }
         [Required]
-        public DateTime ReturnDate { get; set; }
+        [DisplayName("Landing Date")]
+        public DateTime LandingDate { get; set; }
         [Required]
         public List<Seat> Seats { get; set; }
         [Required]
+        [DisplayName("Number Of Seats")]
         public int NumberOfSeats  { get; set; }
         public List<Seat> setSeats(int n)
         {

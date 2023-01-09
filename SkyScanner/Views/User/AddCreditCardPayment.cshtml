@@ -7,7 +7,13 @@
                 <div class="col">
                     <div class="container">
                         <br />
-
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="Israeli_ID" class="form-label"> </label>
+                            </font>
+                            <input asp-for="Israeli_ID" style="width:305px;" class="form-control" placeholder="ie.123456789" />
+                            <span asp-validation-for="Israeli_ID" class="text-bg-danger"></span>
+                        </div>
                         <div class="container">
                             <font size="4" color="white">
                                 <label asp-for="CardNumber" class="form-label"> </label>

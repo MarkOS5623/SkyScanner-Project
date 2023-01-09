@@ -15,6 +15,8 @@ namespace SkyScanner.Controllers
             _db = db;
             _db.Seats = db.Seats;
             this._httpContextAccessor = httpContextAccessor;
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
         }
         public IActionResult Index()
         {

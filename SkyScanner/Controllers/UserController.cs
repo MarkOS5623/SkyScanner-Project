@@ -4,6 +4,7 @@ using SkyScanner.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SkyScanner.Controllers
 {
@@ -37,6 +38,22 @@ namespace SkyScanner.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddUser(User obj) //POST method for AddUser
         {
+            Random rnd = new Random();
+            obj.UserId = rnd.Next(1000, 9999).ToString();
+            var check = _db.Users.Find(obj.UserId);
+            while(check != null) //in case random userid is already used
+            {
+                obj.UserId = rnd.Next(1000, 9999).ToString();
+                check = _db.Users.Find(obj.UserId);
+            }
+            ModelState.ClearValidationState("CreditCards");
+            ModelState.MarkFieldValid("CreditCards");
+            ModelState.ClearValidationState("Bookings");
+            ModelState.MarkFieldValid("Bookings");
+            ModelState.ClearValidationState("KeepLoggedIn");
+            ModelState.MarkFieldValid("KeepLoggedIn");
+            ModelState.ClearValidationState("Admin");
+            ModelState.MarkFieldValid("Admin");
             if (ModelState.IsValid)
             {
                 _db.Users.Add(obj);
@@ -62,10 +79,17 @@ namespace SkyScanner.Controllers
                        where a.Email.Equals(obj.Email)
                        select a;
             var temp = id.ToList();
+            //Setting up a cookie that holds the UsersID
             var cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(1);
             cookieOptions.Path = "/";
             Response.Cookies.Append("UserIdCookie", temp[0].UserId, cookieOptions);
+            //Setting up a cookie to see if User is admin or not
+            var cookieOptions2 = new CookieOptions();
+            cookieOptions2.Expires = DateTime.Now.AddDays(1);
+            cookieOptions2.Path = "/";
+            Response.Cookies.Append("AdminCookie", temp[0].Admin.ToString(), cookieOptions2);
+            ViewData["Admin"] = temp[0].Admin.ToString();
             if (user == null || obj == null) return RedirectToAction("Login");
             else if(obj.Password == user.FirstOrDefault().ToString())
             {
@@ -89,6 +113,21 @@ namespace SkyScanner.Controllers
         {
             IEnumerable<User> objUserList = _db.Users;
             return View(objUserList);
+        }
+        
+        public IActionResult MyBookings()
+        {
+            var userid = Request.Cookies["UserIdCookie"];
+            if (userid == null) return NotFound();
+            if (_db.Bookings.Count() > 0)
+            {
+                var BookingFromDb = from a in _db.Bookings
+                                 where a.User_ID.Equals(userid)
+                                 select a;
+                if (BookingFromDb == null) return NotFound();
+                return View(BookingFromDb);
+            }
+            return View();
         }
         public IActionResult PaymentMethods() 
         {
@@ -126,6 +165,8 @@ namespace SkyScanner.Controllers
             }
             ModelState.ClearValidationState("User");
             ModelState.MarkFieldValid("User");
+            ModelState.ClearValidationState("User_ID");
+            ModelState.MarkFieldValid("User_ID");
             if (ModelState.IsValid)
             {
                 _db.CreditCards.Add(obj);
@@ -148,6 +189,8 @@ namespace SkyScanner.Controllers
             }
             ModelState.ClearValidationState("User");
             ModelState.MarkFieldValid("User");
+            ModelState.ClearValidationState("User_ID");
+            ModelState.MarkFieldValid("User_ID");
             if (ModelState.IsValid)
             {
                 _db.CreditCards.Add(obj);

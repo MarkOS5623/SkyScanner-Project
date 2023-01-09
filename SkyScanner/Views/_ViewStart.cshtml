@@ -1,3 +1,15 @@
 ﻿@{
-    Layout = "_Layout";
+    if (ViewData["Admin"]!=null)
+        if(ViewData["Admin"].Equals("True"))
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_Layout-NonAdmin.cshtml";
+        }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout-NonAdmin.cshtml";
+    }
 }

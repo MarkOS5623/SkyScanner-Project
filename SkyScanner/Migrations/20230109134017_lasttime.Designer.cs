@@ -11,8 +11,8 @@ using SkyScanner.Data;
 namespace SkyScanner.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230106142025_AddingCreditCards")]
-    partial class AddingCreditCards
+    [Migration("20230109134017_lasttime")]
+    partial class lasttime
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,13 +24,53 @@ namespace SkyScanner.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SkyScanner.Models.Booking", b =>
+                {
+                    b.Property<int>("BookingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"));
+
+                    b.Property<string>("BookedSeats")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Origin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoWay")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("User_ID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(4)");
+
+                    b.HasKey("BookingID");
+
+                    b.HasIndex("User_ID");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("SkyScanner.Models.CreditCard", b =>
                 {
-                    b.Property<string>("CardNumber")
+                    b.Property<string>("Israeli_ID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CVV")
                         .HasColumnType("int");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("ExpMonth")
                         .HasColumnType("int");
@@ -40,9 +80,9 @@ namespace SkyScanner.Migrations
 
                     b.Property<string>("User_ID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("nvarchar(4)");
 
-                    b.HasKey("CardNumber");
+                    b.HasKey("Israeli_ID");
 
                     b.HasIndex("User_ID");
 
@@ -52,8 +92,8 @@ namespace SkyScanner.Migrations
             modelBuilder.Entity("SkyScanner.Models.User", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<bool>("Admin")
                         .HasColumnType("bit");
@@ -63,18 +103,8 @@ namespace SkyScanner.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<bool>("KeepLoggedIn")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -84,6 +114,17 @@ namespace SkyScanner.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SkyScanner.Models.Booking", b =>
+                {
+                    b.HasOne("SkyScanner.Models.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("User_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SkyScanner.Models.CreditCard", b =>
@@ -99,6 +140,8 @@ namespace SkyScanner.Migrations
 
             modelBuilder.Entity("SkyScanner.Models.User", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("CreditCards");
                 });
 #pragma warning restore 612, 618

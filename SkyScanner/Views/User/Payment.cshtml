@@ -18,6 +18,9 @@
                             <p><b>Card CVV: </b> @obj.CVV</p>
                         </li>
                         <li class="list-group-item">
+                            <p><b>Holder ID: </b> @obj.Israeli_ID</p>
+                        </li>
+                        <li class="list-group-item">
                             <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-sm">
                                 <font size="4">Pay</font>
                             </a>
@@ -25,7 +28,7 @@
                     </ul>
                 }
             <ul class="list-group p-3 text-center">
-                <a asp-controller="User" asp-action="AddCreditCard" style="width:auto; color:rgba(255, 255, 255, 1)">
+                <a asp-controller="User" asp-action="AddCreditCardPayment" style="width:auto; color:rgba(255, 255, 255, 1)">
                     <font size="8"><i class="bi bi-plus-circle"></i> </font>
                 </a>
             </ul>

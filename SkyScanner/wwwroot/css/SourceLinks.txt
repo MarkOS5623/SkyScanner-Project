@@ -6,3 +6,13 @@ https://icons.getbootstrap.com/
 
 EntityFrameworkCore\Add-Migration [name] -context [context]
 EntityFrameworkCore\update-database -context [context]
+
+<script type="text/javascript">
+    function EnableDisableTextBox(TwoCheck) {
+        var DepartureDateInput = document.getElementById("DepartureDateInput");
+        DepartureDateInput.disabled = TwoCheck.checked ? false : true;
+        if (!DepartureDateInput.disabled) {
+            DepartureDateInput.focus();
+        }
+    }
+</script>
