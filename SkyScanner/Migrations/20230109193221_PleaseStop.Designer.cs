@@ -11,8 +11,8 @@ using SkyScanner.Data;
 namespace SkyScanner.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230109134017_lasttime")]
-    partial class lasttime
+    [Migration("20230109193221_PleaseStop")]
+    partial class PleaseStop
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,9 @@ namespace SkyScanner.Migrations
 
             modelBuilder.Entity("SkyScanner.Models.Booking", b =>
                 {
-                    b.Property<int>("BookingID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"));
+                    b.Property<string>("BookingID")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("BookedSeats")
                         .IsRequired()
@@ -39,11 +37,13 @@ namespace SkyScanner.Migrations
 
                     b.Property<string>("Destination")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Origin")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("TwoWay")
                         .HasColumnType("bit");
@@ -62,7 +62,8 @@ namespace SkyScanner.Migrations
             modelBuilder.Entity("SkyScanner.Models.CreditCard", b =>
                 {
                     b.Property<string>("Israeli_ID")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<int>("CVV")
                         .HasColumnType("int");

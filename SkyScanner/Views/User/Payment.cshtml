@@ -21,7 +21,7 @@
                             <p><b>Holder ID: </b> @obj.Israeli_ID</p>
                         </li>
                         <li class="list-group-item">
-                            <a asp-controller="User" asp-action="ConfirmBooking" class="btn btn-primary btn-sm">
+                            <a asp-controller="User" asp-action="ConfirmBooking" asp-route-cardNum="@obj.CardNumber" class="btn btn-primary btn-sm">
                                 <font size="4">Pay</font>
                             </a>
                          </li>

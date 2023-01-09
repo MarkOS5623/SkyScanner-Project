@@ -5,7 +5,7 @@
 namespace SkyScanner.Migrations
 {
     /// <inheritdoc />
-    public partial class lasttime : Migration
+    public partial class PleaseStop : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,10 +29,9 @@ namespace SkyScanner.Migrations
                 name: "Bookings",
                 columns: table => new
                 {
-                    BookingID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Origin = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookingID = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Origin = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Destination = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     UserID = table.Column<string>(name: "User_ID", type: "nvarchar(4)", nullable: false),
                     BookedSeats = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     TwoWay = table.Column<bool>(type: "bit", nullable: false)
@@ -52,7 +51,7 @@ namespace SkyScanner.Migrations
                 name: "CreditCards",
                 columns: table => new
                 {
-                    IsraeliID = table.Column<string>(name: "Israeli_ID", type: "nvarchar(450)", nullable: false),
+                    IsraeliID = table.Column<string>(name: "Israeli_ID", type: "nvarchar(9)", maxLength: 9, nullable: false),
                     UserID = table.Column<string>(name: "User_ID", type: "nvarchar(4)", nullable: false),
                     CardNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     ExpMonth = table.Column<int>(type: "int", nullable: false),

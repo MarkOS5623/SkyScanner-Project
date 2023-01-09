@@ -28,6 +28,7 @@ namespace SkyScanner.Controllers
         {
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
+       
             IEnumerable<Flight> objUserList = _db.Flights;
             return View(objUserList);
         }

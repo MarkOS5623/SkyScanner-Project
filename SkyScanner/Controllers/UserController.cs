@@ -5,6 +5,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Hosting;
 
 namespace SkyScanner.Controllers
 {
@@ -24,8 +25,9 @@ namespace SkyScanner.Controllers
             ViewData["Admin"] = Admin;
             return View();
         }
-        public IActionResult ConfirmBooking()
+        public IActionResult ConfirmBooking(string? cardNum)
         {
+            HttpContext.Session.SetString("CardNum", cardNum);
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
             var Seats = Request.Cookies["BookingCookie"];
@@ -33,13 +35,37 @@ namespace SkyScanner.Controllers
             var Complete = Request.Cookies["CompleteCookie"];
             return View();
         }
-        public IActionResult AddUser() //GET method for AddUser
+        [HttpPost]
+        public IActionResult ConfirmBooking(Booking obj)
         {
-            var Admin = Request.Cookies["AdminCookie"];
-            ViewData["Admin"] = Admin;
-            return View();
+            Random rnd = new Random();
+            obj.BookingID = rnd.Next(1000, 9999).ToString();
+            obj.User_ID = Request.Cookies["UserIdCookie"];
+            var check = _db.Users.Find(obj.User_ID);
+            obj.User = check;
+            obj.BookedSeats = HttpContext.Session.GetString("Seats");
+            obj.Origin = HttpContext.Session.GetString("Origin");
+            obj.Destination = HttpContext.Session.GetString("Destination");
+            ModelState.ClearValidationState("Origin");
+            ModelState.ClearValidationState("Destination");
+            ModelState.ClearValidationState("User");
+            ModelState.ClearValidationState("User_ID");
+            ModelState.ClearValidationState("BookedSeats");
+            ModelState.ClearValidationState("BookingID");
+            ModelState.MarkFieldValid("Origin");
+            ModelState.MarkFieldValid("Destination");
+            ModelState.MarkFieldValid("User");
+            ModelState.MarkFieldValid("User_ID");
+            ModelState.MarkFieldValid("BookedSeats");
+            ModelState.MarkFieldValid("BookingID");
+            if (ModelState.IsValid)
+            {
+                _db.Bookings.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(obj);
         }
-        
         public IActionResult Payment() //GET method for Payment
         {
             var Admin = Request.Cookies["AdminCookie"];
@@ -47,6 +73,12 @@ namespace SkyScanner.Controllers
             var userid = Request.Cookies["UserIdCookie"];
             var cardsFromDb = _db.CreditCards.Where(x => x.User_ID == userid).ToList();
             return View(cardsFromDb);
+        }
+        public IActionResult AddUser() //GET method for AddUser
+        {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -163,13 +195,7 @@ namespace SkyScanner.Controllers
             }
             return View();
         }
-        public IActionResult AddCreditCard()
-        {
-            var Admin = Request.Cookies["AdminCookie"];
-            ViewData["Admin"] = Admin;
-            return View();
-        }
-        public IActionResult AddCreditCardPayment()
+        public IActionResult AddCreditCardPayment() //GET method for AddCreditCardPayment
         {
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
@@ -177,7 +203,7 @@ namespace SkyScanner.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddCreditCardPayment(CreditCard obj) //POST method for AddFlight
+        public IActionResult AddCreditCardPayment(CreditCard obj) //POST method for AddCreditCardPayment
         {
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
@@ -199,9 +225,15 @@ namespace SkyScanner.Controllers
             }
             return View(obj);
         }
+        public IActionResult AddCreditCard() //GET method for AddCreditCard
+        {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddCreditCard(CreditCard obj) //POST method for AddFlight
+        public IActionResult AddCreditCard(CreditCard obj) //POST method for AddCreditCard
         {
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
@@ -211,9 +243,9 @@ namespace SkyScanner.Controllers
             {
                 obj.User = temp;
             }
-            ModelState.ClearValidationState("User");
+            ModelState.ClearValidationState("User"); //Makes the field valid(virtual func)
             ModelState.MarkFieldValid("User");
-            ModelState.ClearValidationState("User_ID");
+            ModelState.ClearValidationState("User_ID"); //make the field valid as the data in inputed in the backend
             ModelState.MarkFieldValid("User_ID");
             if (ModelState.IsValid)
             {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Session;
 using SkyScanner.Data;
 using SkyScanner.Models;
 using System.Net;
+using System.Text;
 using System.Web.Optimization;
 
 namespace SkyScanner.Controllers
@@ -44,6 +45,7 @@ namespace SkyScanner.Controllers
         }
         public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
         {
+            HttpContext.Session.SetString("Seats", "start");
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
             if (flightid == null) return NotFound();
@@ -55,7 +57,22 @@ namespace SkyScanner.Controllers
         [HttpPost]
         public IActionResult BookSeat(string[] Seats,string[] Indexes, string? FlightID) //POST method for BookSeat
         {
+            var result = new StringBuilder();
+            foreach (var item in Seats)
+            {
+                result.Append(item.Remove(item.Length-5));
+                result.Append(',');
+            }
+            var TEMP = result.ToString();
+            TEMP = TEMP.Remove(TEMP.Length - 1);
+            HttpContext.Session.SetString("Seats", TEMP);
+            HttpContext.Session.SetString("FlightID", FlightID);
             var flightFromDb = _db.Flights.Find(FlightID); //finds the seat's flight
+            HttpContext.Session.SetString("Origin", flightFromDb.Origin);
+            HttpContext.Session.SetString("Destination", flightFromDb.Destination);
+            double b = (flightFromDb.Price) * Seats.Length;
+            var a = b.ToString();
+            HttpContext.Session.SetString("Price", a);
             int[] array = new int[Indexes.Length]; //int array for seat indexes
             if (flightFromDb != null) {
                 for (int i = 0; i < Indexes.Length; i++)
@@ -64,13 +81,7 @@ namespace SkyScanner.Controllers
                     flightFromDb.BookedSeats += Indexes[i]; //adding the booked seats to a string
                     flightFromDb.BookedSeats += ',';
                 }
-            }
-
-            //Setting up a cookie that holds the Current Booking's seats
-            if (Request.Cookies["BookingCookie"] == null)
-            Response.Cookies.Append("BookingCookie", Seats.ToString());
-            //Setting up a cookie to check later if the payment will be complete
-            Response.Cookies.Append("CompleteCookie", "False");
+            };
             if (Seats.Length > 0 && Seats != null)
             {
                 var SeatFromDb = _db.Seats.Where(x => x.Flight_num == FlightID).ToArray(); //gets all the seats from the flight

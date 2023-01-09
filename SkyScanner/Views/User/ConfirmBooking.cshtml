@@ -1,8 +1,37 @@
-﻿<div class="container p-3">
+﻿@model Booking
+
+<div class="container p-3">
     <div class="card text-white bg-primary mb-3" style="max-width: auto;">
-        <div class="card-header">Booking Information @ViewData["Seats"]</div>
+        <div class="card-header">Please Work</div>
         <div class="card-body">
-         @ViewData["Seats"]
+            <ul class="list-group p-3">
+                <form method="post">
+                <li class="list-group-item">
+                    <p><b>Your Seats Are: </b> @Context.Session.GetString("Seats")</p>
+                    </li>
+                    <li class="list-group-item">
+                    <p><b>Flight Number: </b> @Context.Session.GetString("FlightID")</p>
+                    </li>
+                    <li class="list-group-item">
+                    <p><b>Total Price: </b> @Context.Session.GetString("Price")</p>
+                    </li>
+                    <li class="list-group-item">
+                    <p><b>Payment Method: </b>Card ending with @Context.Session.GetString("CardNum")</p>
+                    </li>
+                    <li class="list-group-item">
+                    <font size="4" color="white">
+                        <label asp-for="TwoWay" class="form-label"> </label>
+                    </font>
+                    <input asp-for="TwoWay" style="width:305px;" class="btn-check" placeholder="ie.123456789" />
+                    <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                    </li>
+                    <li class="list-group-item">
+                    <button type="submit" style="width:160px;" class="btn btn-primary btn-sm">
+                        <font size="4">Add</font>
+                    </button>
+                    </li>
+                </form>
+            </ul>
         </div>
     </div>
 </div>
