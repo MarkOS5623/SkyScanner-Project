@@ -1,65 +1,97 @@
 ﻿@model Flight
 
 
-<br />
-<div class="container p-3">
-<form method="post">
-    <div class="form-group">
-        <fieldset disabled="">
-            <font size="5">
-                 <b>
-                    <label asp-for="FlightId" class="form-label"></label>
-                 </b>
-            </font>
-           <input asp-for="FlightId" style="width:25%" class="form-control" placeholder="Flight ID"/>
-           <span asp-validation-for="FlightId" class="text-bg-danger"></span>
-       </fieldset>
-    </div>
+<div class="parent">
+    <form method="post">
+        <div class="child">
+            <div class="row">
+                <div class="col">
+                    <div class="container">
+                        <br />
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="FlightId" class="form-label"> </label>
+                            </font><fieldset class="disabled">
+                            <input asp-for="FlightId" style="width:100%" class="form-control" placeholder="Flight ID" />
+                            <span asp-validation-for="FlightId" class="text-bg-danger"></span>
+                            </fieldset>
+                        </div>
 
-    <div class="form-group">
-            <font size="5">
-                 <b>
-                    <label asp-for="Origin" class="form-label mt-4"></label>
-                 </b>
-            </font>
-       <input asp-for="Origin" style="width:25%" class="form-control" placeholder="Origin"/>
-       <span asp-validation-for="Origin" class="text-bg-danger"></span>
-    </div>
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="Origin" class="form-label"></label>
+                            </font>
+                            <input asp-for="Origin" style="width:100%" class="form-control" placeholder="Origin" />
+                            <span asp-validation-for="Origin" class="text-bg-danger"></span>
 
-    <div class="form-group">
-            <font size="5">
-                 <b>
-                    <label asp-for="Destination" class="form-label mt-4"></label>
-                 </b>
-            </font>
-            <input asp-for="Destination" style="width:25%" class="form-control" placeholder="Destination"/>
-            <span asp-validation-for="Destination" class="text-bg-danger"></span>
-    </div>
+                        </div>
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="Destination" class="form-label"></label>
+                            </font>
+                            <input asp-for="Destination" style="width:100%" class="form-control" placeholder="Destination" />
+                            <span asp-validation-for="Destination" class="text-bg-danger"></span>
+                        </div>
 
-    <div class="form-group">
-            <font size="5">
-                 <b>
-                    <label asp-for="Price" class="form-label mt-4"></label>
-                 </b>
-            </font>
-              <input asp-for="Price" style="width:25%" class="form-control" placeholder="Price"/>
-              <span asp-validation-for="Price" class="text-bg-danger"></span>
-    </div>
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="Price" class="form-label"></label>
+                            </font>
+                            <input asp-for="Price" style="width:100%" class="form-control" placeholder="Price" />
+                            <span asp-validation-for="Price" class="text-bg-danger"></span>
+                        </div>
+                        <input type="hidden" asp-for="Seats" styly="tra" />
+                        <span asp-validation-for="Seats" class="text-bg-danger"></span>
+                        <input type="hidden" asp-for="BookedSeats" styly="tra" />
+                        <span asp-validation-for="BookedSeats" class="text-bg-danger"></span>
+                    </div>
+                </div>
+                <div class="col m-4">
+                    <div class="container">
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="Airline" class="form-label "></label>
+                            </font>
+                            <input asp-for="Airline" style="width:100%" class="form-control" placeholder="Airline" />
+                            <span asp-validation-for="Airline" class="text-bg"></span>
+                        </div>
 
-    <div class="form-group">
-      <font size="5">
-                 <b>
-                    <label asp-for="Airline" class="form-label mt-4"></label>
-                 </b>
-            </font>
-            <input asp-for="Airline" style="width:25%" class="form-control" placeholder="Airline"/>
-            <span asp-validation-for="Airline" class="text-bg-danger"></span>
-    </div>
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="TakeOffDate" class="form-label"></label>
+                            </font>
+                            <input asp-for="TakeOffDate" style="width:100%" class="form-control" placeholder="Number Of Seats" />
+                            <span asp-validation-for="TakeOffDate" class="text-bg-danger"></span>
+                        </div>
 
-    <br />
-        <button type="submit" class="btn" style="width:150px;background-color:rgba(5, 30, 75, 1)">Done</button>
-    <a asp-controller="Flight" asp-action="FlightList" class="btn btn-danger" style="width:150px">
-        Cancel
-    </a>
-</form>
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label for="DepartureDateInput" asp-for="LandingDate" class="form-label"></label>
+                            </font>
+                            <input id="DepartureDateInput" asp-for="LandingDate" style="width:100%" class="form-control" placeholder="Number Of Seats" />
+                            <span asp-validation-for="LandingDate" class="text-bg-danger"></span>
+                        </div>
+
+                        <div class="container">
+                            <font size="4" color="white">
+                                <label asp-for="NumberOfSeats" class="form-label"></label>
+                            </font>
+                            <input asp-for="NumberOfSeats" style="width:100%" class="form-control" placeholder="Number Of Seats" />
+                            <span asp-validation-for="NumberOfSeats" class="text-bg-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="container m-2" style="align-content:center">
+                        <a asp-controller="Flight" asp-action="FlightList" class="btn btn-secondary btn-sm" style="width:160px;">
+                            <font size="4" color="white">Cancel</font>
+                        </a>
+                        <button type="submit" style="width:160px;" class="btn btn-primary btn-sm">
+                            <font size="4">Add</font>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

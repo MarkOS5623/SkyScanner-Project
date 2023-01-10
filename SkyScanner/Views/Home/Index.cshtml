@@ -2,80 +2,65 @@
 
 <form class="m-5">
     <div class="m-5 p-2">
-
-    <div class="m-lg-5">
-
+        <div class="m-lg-5">
         <div class="text-center">
-
-            <table class = "table table-borderless">
-                 <thead class="table-info">
-                   <th>
-                       <font size ="6"><b>Flights</b> </font>
-                   </th>
-                 </thead>
-                  <tbody>
-                   @foreach(var obj in Model){
-                    <tr>
-                      <td>
-                       <div class="card border-primary mb-4" style="max-width: auto;" id="@obj.FlightId"> 
-                           
-                         <div class="card-header" align="left"><font size ="5" color="rgba(2, 25, 69, 1)">
-                             <b>@obj.Origin To @obj.Destination</b> </font> 
-                         </div>
-                         <div class="card-body">
-                           <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                 <button class="accordion-button mb-2" 
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" 
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <b><font size="5">Flight Information<br></font></b>
-                                 </button>  
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" 
-                                    aria-labelledby="headingOne">
-                              <div class="accordion-body" align="left">
+            <div class="card text-white bg-primary mb-3" style="max-width: auto;">
+                <div class="card-header"><font size="5"><b>Available Flights</b></font></div>
+                 <div class="card-body text-black">
+                    @foreach(var obj in Model){
+                        <div class="card border-primary mb-4" style="max-width: auto;" id="@obj.FlightId"> 
+                        <div class="card-header" align="left"><font size ="5">
+                            <b>@obj.Origin To @obj.Destination - Flight Number @obj.FlightId</b> </font> 
+                        </div>
+                        <div class="card-body">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                               <div class="accordion-body" align="left">
                                   <ul class="list-group">
-                                  <font size="4">
-                                  <li class="list-group-item">
-                                    <b>Filght ID: </b> @obj.FlightId 
+                                   <li class="list-group-item">
+                                     <font size="4"><b>Price Per Ticket: </b> @obj.Price<b>₪</b></font>
                                    </li>
+                                   <li class="list-group-item">
+                                    <font size="4"><p><b>Take Off Date: </b> @obj.TakeOffDate.Day/@obj.TakeOffDate.Month/@obj.TakeOffDate.Year</p></font>
+                                   </li>
+                                   <li class="list-group-item">
+                                    <font size="4"><p><b>Take Off Time: </b> @obj.TakeOffDate.ToShortTimeString()</p></font>
+                                   </li>
+                                   <li class="list-group-item">
+                                     <font size="4"><p><b>Landing Date: </b> @obj.LandingDate.Day/@obj.LandingDate.Month/@obj.LandingDate.Year</p></font>
+                                   </li>
+                                   <li class="list-group-item">
+                                     <font size="4"><p><b>Landing Time: </b> @obj.LandingDate.ToShortTimeString()</p></font>
+                                   </li>
+                                   @if(obj.TakeOffDate < DateTime.Today){
                                     <li class="list-group-item">
-                                    <b>Price: </b> @obj.Price<b>₪</b>
+                                        <div class="btn-sm" role="group">
+                                            <a asp-controller="Flight" asp-action="BookSeat" asp-route-flightid="@obj.FlightId"
+                                                class="btn btn-secondary btn-sm disabled" style="width:160px;">
+                                              <font size="4" color="white">Flight Departed</font>
+                                            </a>
+                                        </div>
                                     </li>
+                                    } else{
                                     <li class="list-group-item">
-                                       <p style="color:darkgreen"><b>Arrival Date: </b> @obj.TakeOffDate.Day/@obj.TakeOffDate.Month/@obj.TakeOffDate.Year</p>
+                                        <div class="btn-sm" role="group">
+                                            <a asp-controller="Flight" asp-action="BookSeat" asp-route-flightid="@obj.FlightId"
+                                                class="btn btn-primary btn-sm" style="width:160px;">
+                                              <font size="4" color="white">Book A Seat</font>
+                                            </a>
+                                        </div>
                                     </li>
-                                    <li class="list-group-item">
-                                        <p style="color:darkgreen"><b>Arrival Time: </b> @obj.TakeOffDate.Hour:@obj.TakeOffDate.Minute</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                       <p style="color:darkred"><b>Departure Date: </b> @obj.LandingDate.Day/@obj.LandingDate.Month/@obj.LandingDate.Year</p>
-                                    </li>
-                                    <li class="list-group-it    em">
-                                        <p style="color:darkred"><b>Departure Time: </b> @obj.LandingDate.Hour:@obj.LandingDate.Minute</p>
-                                    </li>
-                                   </font>
-                                    <div class="btn-sm" role="group">
-                                        <a asp-controller="Flight" asp-action="BookSeat" asp-route-flightid="@obj.FlightId"
-                                        class="btn btn-secondary btn-large" style="width:160px; color:rgba(5, 30, 75, 1)">
-                                            <font size="4">Book</font>
-                                        </a>
-
-                                    </div>
-                                    </ul>
-                              </div>
-                             </div>
+                                    }
+                                  </ul>
+                               </div>
                             </div>
-                         </div>
-                       </div>
-                      </td>
-                    </tr>
+                        </div>
+                     </div>
                    }
-                 </tbody>
-            </table>
+                </div>
+                </div>
 
         </div>
-    </div>
+        </div>
     </div>
 
 </form>

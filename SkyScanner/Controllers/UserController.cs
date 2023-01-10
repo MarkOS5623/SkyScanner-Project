@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using NuGet.Protocol.Plugins;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SkyScanner.Controllers
 {
@@ -32,7 +37,6 @@ namespace SkyScanner.Controllers
             ViewData["Admin"] = Admin;
             var Seats = Request.Cookies["BookingCookie"];
             ViewData["Seats"] = Seats;
-            var Complete = Request.Cookies["CompleteCookie"];
             return View();
         }
         [HttpPost]
@@ -58,12 +62,12 @@ namespace SkyScanner.Controllers
             ModelState.MarkFieldValid("User_ID");
             ModelState.MarkFieldValid("BookedSeats");
             ModelState.MarkFieldValid("BookingID");
+            var st = "New";
             if (ModelState.IsValid)
             {
                 _db.Bookings.Add(obj);
                 _db.SaveChanges();
-                HttpContext.Session.Clear();
-                HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
+                HttpContext.Session.SetString("Complete","Yes");
                 return RedirectToAction("MyBookings");
             }
             return View(obj);
@@ -165,8 +169,14 @@ namespace SkyScanner.Controllers
             return View(objUserList);
         }
         
-        public IActionResult MyBookings()
+        public IActionResult MyBookings(string? newBooking)
         {
+            if(HttpContext.Session.GetString("Complete") != null)
+            {
+                HttpContext.Session.Clear();
+                HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
+                ViewData["New"] = "New";
+            }
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
             var userid = Request.Cookies["UserIdCookie"];

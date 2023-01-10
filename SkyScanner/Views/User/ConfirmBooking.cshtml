@@ -1,8 +1,10 @@
 ﻿@model Booking
-
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
 <div class="container p-3">
     <div class="card text-white bg-primary mb-3" style="max-width: auto;">
-        <div class="card-header">Please Work</div>
+        <div class="card-header">Booking Details</div>
         <div class="card-body">
             <ul class="list-group p-3">
                 <form method="post">
@@ -31,8 +33,11 @@
                                 <font size="4">Confirm</font>
                             </button>
 
-                        <a asp-controller="Flight" asp-action="CancelBooking" class="btn btn-secondary btn-sm" style="width:160px;">
+                        <a asp-controller="Flight" asp-action="CancelBooking" class="btn btn-secondary btn-sm" style="width:160px;background:red;">
                             <font size="4" color="white">Cancel</font>
+                        </a>
+                        <a asp-controller="User" asp-action="Payment" class="btn btn-secondary btn-sm" style="width:160px;">
+                            <font size="4" color="white">Go Back</font>
                         </a>
                         </div>
                     </li>
