@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using SkyScanner.Data;
 using SkyScanner.Models;
+using System;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Optimization;
@@ -40,8 +42,42 @@ namespace SkyScanner.Controllers
         {
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
+            if(Seats==null) return NotFound();
             List<string> list = Seats.Split(',').ToList(); 
             return View(list);
+        }
+        public IActionResult CancelBooking()
+        {
+            var BookedSeats = HttpContext.Session.GetString("Seats");
+            var flightNum = HttpContext.Session.GetString("FlightID");
+            var SeatArray = BookedSeats.Split(',');
+            for (int i = 0; i < SeatArray.Count(); i++)
+            {
+                SeatArray[i] += "-"+flightNum;
+            }
+            for (int i = 0; i < SeatArray.Count(); i++)
+            {
+                var temp = _db.Seats.Find(SeatArray[i]);
+                temp.Booked = false;
+                _db.Seats.Update(temp);
+            }
+            var obj = _db.Flights.Find(flightNum);
+            int count = 1;
+            var bookedIndexes = HttpContext.Session.GetString("Indexes");
+            var IndexArray = bookedIndexes.Split(',');
+            var ss = obj.BookedSeats;
+            for (int i =0;i < IndexArray.Count();i++)
+            if (obj.BookedSeats.Contains(IndexArray[i]))
+            {
+                    ss = ss.Replace(IndexArray[i]+",","");
+            }
+            obj.BookedSeats = ss;
+            var haha = obj.BookedSeats;
+            _db.Flights.Update(obj);
+            _db.SaveChanges();
+            HttpContext.Session.Clear();
+            HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
+            return RedirectToAction("Index","Home");
         }
         public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
         {
@@ -57,14 +93,24 @@ namespace SkyScanner.Controllers
         [HttpPost]
         public IActionResult BookSeat(string[] Seats,string[] Indexes, string? FlightID) //POST method for BookSeat
         {
-            var result = new StringBuilder();
+            var Seatresult = new StringBuilder();
             foreach (var item in Seats)
             {
-                result.Append(item.Remove(item.Length-5));
-                result.Append(',');
+                Seatresult.Append(item.Remove(item.Length-5));
+                Seatresult.Append(',');
             }
-            var TEMP = result.ToString();
+            var TEMP = Seatresult.ToString();
             TEMP = TEMP.Remove(TEMP.Length - 1);
+
+            var Indexresult = new StringBuilder();
+            foreach (var item in Indexes)
+            {
+                Indexresult.Append(item);
+                Indexresult.Append(',');
+            }
+            var OBJ = Indexresult.ToString();
+            OBJ = OBJ.Remove(OBJ.Length - 1);
+            HttpContext.Session.SetString("Indexes", OBJ);
             HttpContext.Session.SetString("Seats", TEMP);
             HttpContext.Session.SetString("FlightID", FlightID);
             var flightFromDb = _db.Flights.Find(FlightID); //finds the seat's flight

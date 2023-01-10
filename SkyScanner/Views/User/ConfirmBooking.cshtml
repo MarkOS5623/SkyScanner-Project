@@ -26,9 +26,15 @@
                     <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
                     </li>
                     <li class="list-group-item">
-                    <button type="submit" style="width:160px;" class="btn btn-primary btn-sm">
-                        <font size="4">Add</font>
-                    </button>
+                        <div class="container"> 
+                            <button type="submit" style="width:160px;" class="btn btn-primary btn-sm">
+                                <font size="4">Confirm</font>
+                            </button>
+
+                        <a asp-controller="Flight" asp-action="CancelBooking" class="btn btn-secondary btn-sm" style="width:160px;">
+                            <font size="4" color="white">Cancel</font>
+                            </a>
+                        </div>
                     </li>
                 </form>
             </ul>

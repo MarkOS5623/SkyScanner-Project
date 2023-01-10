@@ -62,7 +62,7 @@ namespace SkyScanner.Controllers
             {
                 _db.Bookings.Add(obj);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MyBookings");
             }
             return View(obj);
         }
