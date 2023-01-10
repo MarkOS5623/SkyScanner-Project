@@ -84,7 +84,7 @@ banana.addEventListener('click', (E) => {
     DepopulateUI();
     $.ajax({
         type: "POST",
-        dataType: "json; charset=utf-8",
+        dataType: "json; charset=utf-16",
         url: "/Flight/BookSeat",
         data: {
             Seats: JSON.parse(localStorage.getItem('SeatValues')),

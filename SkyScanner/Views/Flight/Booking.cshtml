@@ -8,20 +8,34 @@
                 @foreach (var obj in Model)
                 {
                     <ul class="list-group p-3">
+                        @if (obj[3].Equals('-'))
+                        {
+                            <li class="list-group-item">
+                                <p><b>Seat Number: </b> @obj[0]@obj[1]@obj[2]</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><b>Flight Number: </b> @obj[4]@obj[5]@obj[6]@obj[7]</p>
+                            </li>
+                        } else{
                         <li class="list-group-item">
                             <p><b>Seat Number: </b> @obj[0]@obj[1]</p>
                         </li>
                         <li class="list-group-item">
                             <p><b>Flight Number: </b> @obj[3]@obj[4]@obj[5]@obj[6]</p>
                         </li>
+                        }
                     </ul>
                 }
-            
-            <ul class="list-group p-3 text-center">
-                <a asp-controller="User" asp-action="Payment" style="width:auto; color:rgba(255, 255, 255, 1)">
-                    <font size="5">Procced To Payment</font>
+            <ul class="row p-3">
+                <a asp-controller="Flight" class="btn btn-secondary bntsmall" asp-action="CancelBooking" style="width:150px; color:rgba(255, 255, 255, 1)">
+                    <font size="4">Cancel</font>
+                </a>
+                <a asp-controller="User" class="btn btn-primary bntsmall ms-lg-auto" asp-action="Payment" style="width:150px; color:rgba(255, 255, 255, 1)">
+                    <font size="4">Procced To Payment</font>
                 </a>
             </ul>
+
+
         </div>
     </div>
 </div>

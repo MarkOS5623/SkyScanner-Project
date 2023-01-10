@@ -79,9 +79,13 @@
             row.appendChild(seat);
     }}
 </script>
+    
     <script src="~/lib/jquery/dist/SeatScript.js" asp-append-version="true"></script>
-
-<button id="Book" class="btn btn-secondary btn-large" style="width:160px; color:rgba(5, 30, 75, 1)">
+   
+    <button id="Book" class="btn btn-primary btn-large" style="width:160px;">
       <font size="4">Book</font>
-</button>
+    </button>
+    <a asp-controller="Flight" asp-action="CancelBooking" class="btn btn-secondary btn-sm" style="width:160px;">
+        <font size="4" color="white">Cancel</font>
+    </a>
 </div>

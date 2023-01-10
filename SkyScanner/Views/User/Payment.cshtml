@@ -2,8 +2,11 @@
 
 <div class="container p-3">
     <div class="card text-white bg-primary mb-3" style="max-width: auto;">
-        <div class="card-header">Payment Information</div>
+        <div class="card-header"><font size="5">Payment Information</font></div>
         <div class="card-body">
+              <font size="5"><p><b>Total Price Is: </b> @Context.Session.GetString("Price")₪</p>
+               Choose Payment Method:
+            </font>
             @if (Model != null)
                 @foreach (var obj in Model)
                 {

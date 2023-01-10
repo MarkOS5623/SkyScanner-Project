@@ -61,8 +61,7 @@ namespace SkyScanner.Controllers
                 temp.Booked = false;
                 _db.Seats.Update(temp);
             }
-            var obj = _db.Flights.Find(flightNum);
-            int count = 1;
+            var obj = _db.Flights.Find(flightNum);;
             var bookedIndexes = HttpContext.Session.GetString("Indexes");
             var IndexArray = bookedIndexes.Split(',');
             var ss = obj.BookedSeats;
@@ -93,6 +92,7 @@ namespace SkyScanner.Controllers
         [HttpPost]
         public IActionResult BookSeat(string[] Seats,string[] Indexes, string? FlightID) //POST method for BookSeat
         {
+            //getting all the data we need in string form
             var Seatresult = new StringBuilder();
             foreach (var item in Seats)
             {
@@ -110,6 +110,7 @@ namespace SkyScanner.Controllers
             }
             var OBJ = Indexresult.ToString();
             OBJ = OBJ.Remove(OBJ.Length - 1);
+            //Booking Session data Cookie setup
             HttpContext.Session.SetString("Indexes", OBJ);
             HttpContext.Session.SetString("Seats", TEMP);
             HttpContext.Session.SetString("FlightID", FlightID);
@@ -119,6 +120,7 @@ namespace SkyScanner.Controllers
             double b = (flightFromDb.Price) * Seats.Length;
             var a = b.ToString();
             HttpContext.Session.SetString("Price", a);
+            //Booking Session Cookie setup end
             int[] array = new int[Indexes.Length]; //int array for seat indexes
             if (flightFromDb != null) {
                 for (int i = 0; i < Indexes.Length; i++)
@@ -162,6 +164,7 @@ namespace SkyScanner.Controllers
         public IActionResult AddFlight(Flight obj) //POST method for AddFlight
         {
             obj.Seats = obj.setSeats(obj.NumberOfSeats);
+            if(_db.Flights.Find(obj.FlightId) != null) return View(obj);
             if (ModelState.IsValid)
             {
                 _db.Flights.Add(obj);

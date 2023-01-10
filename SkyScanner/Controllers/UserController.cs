@@ -62,6 +62,8 @@ namespace SkyScanner.Controllers
             {
                 _db.Bookings.Add(obj);
                 _db.SaveChanges();
+                HttpContext.Session.Clear();
+                HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
                 return RedirectToAction("MyBookings");
             }
             return View(obj);
