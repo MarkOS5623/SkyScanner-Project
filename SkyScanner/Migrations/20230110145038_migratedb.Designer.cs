@@ -11,8 +11,8 @@ using SkyScanner.Data;
 namespace SkyScanner.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20230109193221_PleaseStop")]
-    partial class PleaseStop
+    [Migration("20230110145038_migratedb")]
+    partial class migratedb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

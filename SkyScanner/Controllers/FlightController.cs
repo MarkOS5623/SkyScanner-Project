@@ -100,6 +100,7 @@ namespace SkyScanner.Controllers
                 Seatresult.Append(',');
             }
             var TEMP = Seatresult.ToString();
+            if (TEMP.Length == 0) { return View(); } //in case no seats were chosen
             TEMP = TEMP.Remove(TEMP.Length - 1);
 
             var Indexresult = new StringBuilder();

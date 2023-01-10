@@ -5,7 +5,7 @@
 namespace SkyScanner.Migrations
 {
     /// <inheritdoc />
-    public partial class PleaseStop : Migration
+    public partial class migratedb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
