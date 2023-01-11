@@ -86,7 +86,13 @@ namespace SkyScanner.Controllers
                 HttpContext.Session.SetString("More", flightid);
                 HttpContext.Session.SetString("Booking", BookingID);
             }
-            return Redirect("https://localhost:44313/Flight/BookSeat?flightid=4561");
+            return Redirect("https://localhost:44313/Flight/BookSeat?flightid="+flightid);
+        }
+        public IActionResult TwoWayBooking()
+        {
+            var flight = HttpContext.Session.GetString("FlightID");
+            var FlightBack = _db.Flights.Where(x => x.FlightBack == flight).ToList();
+            return Redirect("https://localhost:44313/Flight/BookSeat?flightid=" + FlightBack.First().FlightId);
         }
         public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
         {
@@ -128,6 +134,7 @@ namespace SkyScanner.Controllers
             var flightFromDb = _db.Flights.Find(FlightID); //finds the seat's flight
             HttpContext.Session.SetString("Origin", flightFromDb.Origin);
             HttpContext.Session.SetString("Destination", flightFromDb.Destination);
+            if(flightFromDb.TwoWay) HttpContext.Session.SetString("TwoWayAvial", "True");
             double b = (flightFromDb.Price) * Seats.Length;
             var a = b.ToString();
             HttpContext.Session.SetString("Price", a);
@@ -182,6 +189,18 @@ namespace SkyScanner.Controllers
                 for(int i = 0; i < obj.Seats.Count();i++)
                 _db.Seats.Add(obj.Seats[i]);
                 _db.SaveChanges();
+                if (obj.TwoWay)
+                {
+                    HttpContext.Session.SetString("Destination", obj.Origin);
+                    HttpContext.Session.SetString("Origin", obj.Destination);
+                    HttpContext.Session.SetString("FlightNum", obj.FlightId);
+                    return View();
+                }
+                if (HttpContext.Session != null)
+                {
+                    HttpContext.Session.Clear();
+                    HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
+                }
                 return RedirectToAction("FlightList");
             }
             return View(obj);

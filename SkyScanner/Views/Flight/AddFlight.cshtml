@@ -70,8 +70,12 @@
             <label asp-for="Origin" class="form-label"></label>
             </font>
             <select asp-for="Origin" class="form-select" id="exampleSelect1">
+                @if(Context.Session.GetString("Origin") == null){
                 @foreach(var item in countryCodesMapping){
                     <option>@item.Key</option>
+                }
+                }else{
+                    <option>@Context.Session.GetString("Origin")</option>
                 }
             </select>
              <span asp-validation-for="Origin" class="text-bg-danger"></span>
@@ -81,9 +85,13 @@
             <font size="4" color="white">
             <label asp-for="Destination" class="form-label"></label>
             </font>
-                            <select asp-for="Destination" class="form-select" id="exampleSelect1">
+            <select asp-for="Destination" class="form-select" id="exampleSelect1">
+                @if(Context.Session.GetString("Destination") == null){
                 @foreach(var item in countryCodesMapping){
                     <option>@item.Key</option>
+                }
+                }else{
+                    <option>@Context.Session.GetString("Destination")</option>
                 }
             </select>
             <span asp-validation-for="Destination" class="text-bg-danger"></span>
@@ -100,12 +108,27 @@
         <span asp-validation-for="Seats" class="text-bg-danger"></span>
         <input type="hidden" asp-for="BookedSeats" styly="tra" />
         <span asp-validation-for="BookedSeats" class="text-bg-danger"></span>
+
         <div class="container">
-            <font size="4" color="white">
-                <label asp-for="TwoWay" class="form-label ms-lg-auto"></label>
-                <input asp-for="TwoWay" type="checkbox" class="form-check-input"/>
-                <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
-            </font>
+            @if(Context.Session.GetString("Destination") == null){
+                <font size="4" color="white">
+                    <label asp-for="TwoWay" class="form-label ms-lg-auto"></label>
+                    <input asp-for="TwoWay" type="checkbox" class="form-check-input"/>
+                    <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                </font>
+                <input type="hidden" asp-for="FlightBack" value=""/>
+                <span asp-validation-for="FlightBack" class="text-bg-danger"></span>
+            } else{
+                <fieldset disabled="">
+                    <font size="4" color="white">
+                        <label asp-for="TwoWay" class="form-label ms-lg-auto"></label>
+                        <input asp-for="TwoWay" type="checkbox" class="form-check-input" value="@false"/>
+                        <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                    </font>
+                </fieldset>
+                <input type="hidden" asp-for="FlightBack" value="@Context.Session.GetString("FlightNum")"/>
+                <span asp-validation-for="FlightBack" class="text-bg-danger"></span>
+            }
         </div>
     </div>
     </div>

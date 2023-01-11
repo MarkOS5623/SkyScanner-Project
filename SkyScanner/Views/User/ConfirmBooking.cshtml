@@ -21,9 +21,24 @@
                     <p><b>Payment Method: </b>Card ending with @Context.Session.GetString("CardNum")</p>
                     </li>
                     <li class="list-group-item">
-                    <font size="4" color="white">
-                        <label asp-for="TwoWay" class="form-label"> </label>
-                    </font>
+                     @if (Context.Session.GetString("TwoWayAvial") != null)
+                            {
+                            <font size="4" color="black">
+                                <label asp-for="TwoWay" class="form-label ms-lg-auto"></label>
+                                <input asp-for="TwoWay" type="checkbox" class="form-check-input" />
+                                <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                            </font>
+                            }
+                            else
+                            {
+                            <fieldset disabled="">
+                            <font size="4" color="black">
+                                    <label asp-for="TwoWay" class="form-label ms-lg-auto"></label>
+                                    <input asp-for="TwoWay" type="checkbox" class="form-check-input" value="@false" />
+                                    <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                                </font>
+                            </fieldset>
+                            }
                     <input asp-for="TwoWay" style="width:305px;" class="btn-check" placeholder="ie.123456789" />
                     <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
                     <input type="hidden" asp-for="CardNumber" class="btn-check" value="@Context.Session.GetString("CardNum").Substring(Context.Session.GetString("CardNum").Length - 4)" />
@@ -50,6 +65,7 @@
                         <a asp-controller="User" asp-action="Payment" class="btn btn-secondary btn-sm" style="width:160px;">
                             <font size="4" color="white">Go Back</font>
                         </a>
+                           
                         </div>
                     </li>
                 </form>

@@ -12,6 +12,7 @@ namespace SkyScanner.Models
     {
         [DisplayName("Two Way Flight")]
         public bool TwoWay { get; set; } = false;
+        public string? FlightBack { get; set; }
         [StringLength(1000)]
         public string? BookedSeats { get; set; }
         [Required]

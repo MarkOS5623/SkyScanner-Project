@@ -30,6 +30,9 @@
                                    <li class="list-group-item">
                                      <font size="4"><p><b>Landing Time: </b> @obj.LandingDate.ToShortTimeString()</p></font>
                                    </li>
+                                   <li class="list-group-item">
+                                     <font size="4"><p><b>Two Way Available: </b> @obj.TwoWay.ToString()</p></font>
+                                    </li>
                                    @if(obj.TakeOffDate < DateTime.Today){
                                     <li class="list-group-item">
                                         <div class="btn-sm" role="group">
@@ -48,7 +51,7 @@
                                                 </a>
                                             </div>
                                         </li>    
-                                     }
+                                   }
                                   </ul>
                                </div>
                             </div>

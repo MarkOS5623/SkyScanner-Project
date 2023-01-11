@@ -86,6 +86,12 @@ namespace SkyScanner.Controllers
             }
             if (ModelState.IsValid)
             {
+                if (obj.TwoWay)
+                {
+                    _db.Bookings.Add(obj);
+                    _db.SaveChanges();
+                    return RedirectToAction("TwoWayBooking","Flight");
+                }
                 _db.Bookings.Add(obj);
                 _db.SaveChanges();
                 HttpContext.Session.SetString("Complete","Yes");
