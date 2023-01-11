@@ -76,6 +76,9 @@ namespace SkyScanner.Controllers
             if (HttpContext.Session.GetString("More") != null)
             {
                 temp.BookedSeats += "," + obj.BookedSeats;
+                var added = int.Parse(obj.Price);
+                var price = int.Parse(temp.Price);
+                temp.Price = (price + added).ToString();
                 _db.Bookings.Update(temp);
                 _db.SaveChanges();
                 HttpContext.Session.SetString("Complete", "Yes");
