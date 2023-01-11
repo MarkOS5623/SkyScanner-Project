@@ -11,6 +11,8 @@ using NuGet.Protocol.Plugins;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Ajax.Utilities;
+using Microsoft.IdentityModel.Protocols;
 
 namespace SkyScanner.Controllers
 {
@@ -32,6 +34,7 @@ namespace SkyScanner.Controllers
         }
         public IActionResult ConfirmBooking(string? cardNum)
         {
+            if(cardNum != null)
             HttpContext.Session.SetString("CardNum", cardNum);
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
@@ -217,6 +220,7 @@ namespace SkyScanner.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddCreditCardPayment(CreditCard obj) //POST method for AddCreditCardPayment
         {
+            var check = obj.Save;
             var userid = Request.Cookies["UserIdCookie"];
             if (userid == null) return NotFound();
             obj.User_ID = userid;
@@ -231,9 +235,12 @@ namespace SkyScanner.Controllers
             ModelState.MarkFieldValid("User_ID");
             if (ModelState.IsValid)
             {
-                _db.CreditCards.Add(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Home","Index");
+                if (check == true) { 
+                       _db.CreditCards.Add(obj);
+                       _db.SaveChanges();
+                }
+                HttpContext.Session.SetString("CardNum", obj.CardNumber);
+                return RedirectToAction("ConfirmBooking");
             }
             return View(obj);
         }

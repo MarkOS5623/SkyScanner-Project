@@ -15,11 +15,11 @@ namespace SkyScanner.Models
         [RegularExpression("^[0-9]{4}$")]
         public string User_ID { get; set; }
         [ForeignKey("User_ID")]
-        [Key]
         [RegularExpression("^[0-9]{9}$", ErrorMessage = "Your ID is not valid")]
         [StringLength(9, MinimumLength = 9)]
         [DisplayName("Card Holder ID")]
         public string Israeli_ID { get; set; }
+        [Key]
         [RegularExpression("^[0-9]{16}$", ErrorMessage = "Card number is not valid")]
         [StringLength(16, MinimumLength = 16)]
         [DisplayName("Card Number")]
@@ -33,6 +33,7 @@ namespace SkyScanner.Models
         public CreditCard()
         {
         }
+        public bool Save { get; set; } = false;
         public CreditCard(string user_ID, string israeli_id, User user, string cardNumber, int expMonth, int expYear, int cVV)
         {
             User_ID = user_ID;

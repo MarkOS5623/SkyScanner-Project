@@ -58,17 +58,12 @@ namespace SkyScanner.Migrations
 
             modelBuilder.Entity("SkyScanner.Models.CreditCard", b =>
                 {
-                    b.Property<string>("Israeli_ID")
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                    b.Property<string>("CardNumber")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("CVV")
                         .HasColumnType("int");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("ExpMonth")
                         .HasColumnType("int");
@@ -76,11 +71,19 @@ namespace SkyScanner.Migrations
                     b.Property<int>("ExpYear")
                         .HasColumnType("int");
 
+                    b.Property<string>("Israeli_ID")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<bool>("Save")
+                        .HasColumnType("bit");
+
                     b.Property<string>("User_ID")
                         .IsRequired()
                         .HasColumnType("nvarchar(4)");
 
-                    b.HasKey("Israeli_ID");
+                    b.HasKey("CardNumber");
 
                     b.HasIndex("User_ID");
 
