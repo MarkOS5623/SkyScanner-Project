@@ -26,7 +26,7 @@
                     </font>
                     <input asp-for="TwoWay" style="width:305px;" class="btn-check" placeholder="ie.123456789" />
                     <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
-                    <input type="hidden" asp-for="CardNumber" class="btn-check" value="@Context.Session.GetString("CardNum")"/>
+                    <input type="hidden" asp-for="CardNumber" class="btn-check" value="@Context.Session.GetString("CardNum").Substring(Context.Session.GetString("CardNum").Length - 4)" />
                     <span asp-validation-for="CardNumber" class="text-bg-danger"></span>
                     <input type="hidden" asp-for="FlightId" class="btn-check" value="@Context.Session.GetString("FlightID")" />
                     <span asp-validation-for="FlightId" class="text-bg-danger"></span>

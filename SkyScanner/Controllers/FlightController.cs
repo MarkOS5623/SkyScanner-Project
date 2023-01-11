@@ -78,6 +78,16 @@ namespace SkyScanner.Controllers
             HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
             return RedirectToAction("Index","Home");
         }
+
+        public IActionResult BookingEdit(string? flightid, string? BookingID)
+        {
+            if (flightid != null)
+            {
+                HttpContext.Session.SetString("More", flightid);
+                HttpContext.Session.SetString("Booking", BookingID);
+            }
+            return Redirect("https://localhost:44313/Flight/BookSeat?flightid=4561");
+        }
         public IActionResult BookSeat(string? flightid) //GET method for BookSeat View
         {
             HttpContext.Session.SetString("Seats", "start");

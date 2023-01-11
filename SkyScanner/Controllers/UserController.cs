@@ -45,6 +45,7 @@ namespace SkyScanner.Controllers
         [HttpPost]
         public IActionResult ConfirmBooking(Booking obj)
         {
+            var temp = _db.Bookings.Find(HttpContext.Session.GetString("Booking"));
             Random rnd = new Random();
             var Exists= _db.Bookings.Find(obj.BookingID); ;
             obj.BookingID = rnd.Next(1000, 9999).ToString();
@@ -72,6 +73,14 @@ namespace SkyScanner.Controllers
             ModelState.MarkFieldValid("BookedSeats");
             ModelState.MarkFieldValid("BookingID");
             var st = "New";
+            if (HttpContext.Session.GetString("More") != null)
+            {
+                temp.BookedSeats += "," + obj.BookedSeats;
+                _db.Bookings.Update(temp);
+                _db.SaveChanges();
+                HttpContext.Session.SetString("Complete", "Yes");
+                return RedirectToAction("MyBookings");
+            }
             if (ModelState.IsValid)
             {
                 _db.Bookings.Add(obj);
