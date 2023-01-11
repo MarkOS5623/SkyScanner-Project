@@ -27,9 +27,12 @@
                     <p><b>Booking Date: </b>Your booking was made on @Model.BookingDate.ToShortDateString() at @Model.BookingDate.ToShortTimeString()</p>
                 </li>
                 <li class="list-group-item">
-                        <a asp-controller="User" asp-action="MyBookings" class="btn btn-secondary btn-sm" style="width:160px;">
-                            <font size="4" color="white">Go Back</font>
-                        </a>
+                    <a asp-controller="User" asp-action="MyBookings" class="btn btn-secondary btn-sm" style="width:160px;">
+                        <font size="4" color="white">Go Back</font>
+                    </a>
+                    <a asp-controller="User" asp-action="MyBookings" class="btn btn-primary btn-sm" style="width:160px;">
+                        <font size="4" color="white">Book More Seats</font>
+                    </a>
                 </li>
             </ul>
         </div>

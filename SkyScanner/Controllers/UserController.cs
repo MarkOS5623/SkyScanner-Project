@@ -190,6 +190,16 @@ namespace SkyScanner.Controllers
             ViewBag.Price = BookingFromDb.Price;
             return View(BookingFromDb);
         }
+        public IActionResult EditBooking(string? BookingID)
+        {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
+            if (BookingID == null) return NotFound();
+            var BookingFromDb = _db.Bookings.Find(BookingID);
+            if (BookingFromDb == null) return NotFound();
+            ViewBag.Price = BookingFromDb.Price;
+            return View(BookingFromDb);
+        }
         public IActionResult MyBookings(string? newBooking)
         {
             if(HttpContext.Session.GetString("Complete") != null)

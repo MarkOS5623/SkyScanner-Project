@@ -8,16 +8,16 @@
                 @foreach(var obj in Model){
                 <ul class="list-group p-3">
                     <li class="list-group-item">
-                       <p><b>Card Number: </b> @obj.CardNumber</p>
+                       <p><b>Card Number: </b> Card ending with @obj.CardNumber.Substring(obj.CardNumber.Length - 4)</p>
                     </li>
                     <li class="list-group-item">
                        <p><b>Exp Date: </b> @obj.ExpMonth/@obj.ExpYear</p>
                     </li>
                     <li class="list-group-item">
-                       <p><b>Card CVV: </b> @obj.CVV</p>
+                       <p><b>Card CVV: </b> ***</p>
                     </li>
                     <li class="list-group-item">
-                        <p><b>Holder ID: </b> @obj.Israeli_ID</p>
+                            <p><b>Holder ID: </b> ID ending with @obj.Israeli_ID.Substring(obj.Israeli_ID.Length - 3)</p>
                     </li>
                 </ul>
                 }

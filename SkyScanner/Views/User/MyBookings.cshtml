@@ -28,9 +28,6 @@
                     Destination
                 </th>
                 <th>
-                    Number of Seats
-                </th>
-                <th>
                     Two Way
                 </th>
                 <th>
@@ -56,17 +53,24 @@
                         @obj.Destination
                     </td>
                     <td>
-                        
-                    </td>
-                    <td>
                         @obj.TwoWay
                     </td>
                     <td>
-                        <div class="btn-sm" role="group">
-                            <a asp-controller="User" asp-action="MyBookingsEdit" asp-route-flightid="@obj.BookingID" type="button" class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                        </div>
+                        @if (obj.FlightDate < DateTime.Today) {
+                            <div class="btn-sm" role="group">
+                                <fieldset disabled="">
+                                    <a asp-controller="User" asp-action="MyBookingsEdit" asp-route-flightid="@obj.BookingID" type="button" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                </fieldset>
+                            </div>
+                        } else {
+                            <div class="btn-sm" role="group">
+                                <a asp-controller="User" asp-action="EditBooking" asp-route-BookingID="@obj.BookingID" type="button" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                            </div>
+                        }
                     </td>
                     <td>
                         <div class="btn-sm" role="group">

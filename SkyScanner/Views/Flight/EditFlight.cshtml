@@ -44,6 +44,13 @@
                         <span asp-validation-for="Seats" class="text-bg-danger"></span>
                         <input type="hidden" asp-for="BookedSeats" styly="tra" />
                         <span asp-validation-for="BookedSeats" class="text-bg-danger"></span>
+                        <div class="form-check">
+                            <fieldset disabled="">
+                            <label asp-for="TwoWay" class="form-label ms-lg-auto"><font size="4" color="white"><b>Save This Card</b></font></label>
+                            <input asp-for="TwoWay" type="checkbox" class="form-check-input" />
+                            <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div class="col m-4">
