@@ -46,7 +46,13 @@ namespace SkyScanner.Controllers
         public IActionResult ConfirmBooking(Booking obj)
         {
             Random rnd = new Random();
+            var Exists= _db.Bookings.Find(obj.BookingID); ;
             obj.BookingID = rnd.Next(1000, 9999).ToString();
+            while (Exists != null) //in case random BookingID is already used
+            {
+                obj.BookingID = rnd.Next(1000, 9999).ToString();
+                Exists = _db.Bookings.Find(obj.BookingID);
+            }
             obj.User_ID = Request.Cookies["UserIdCookie"];
             var check = _db.Users.Find(obj.User_ID);
             obj.User = check;
@@ -111,8 +117,11 @@ namespace SkyScanner.Controllers
             ModelState.MarkFieldValid("Admin");
             if (ModelState.IsValid)
             {
-                _db.Users.Add(obj);
-                _db.SaveChanges();
+                if (_db.Users.Find(obj.UserId) == null)
+                {
+                    _db.Users.Add(obj);
+                    _db.SaveChanges();
+                }
                 return RedirectToAction("Login");
             }
             return View(obj);
@@ -171,7 +180,16 @@ namespace SkyScanner.Controllers
             IEnumerable<User> objUserList = _db.Users;
             return View(objUserList);
         }
-        
+        public IActionResult BookingDetails(string? BookingID)
+        {
+            var Admin = Request.Cookies["AdminCookie"];
+            ViewData["Admin"] = Admin;
+            if (BookingID == null) return NotFound();
+            var BookingFromDb = _db.Bookings.Find(BookingID);
+            if (BookingFromDb == null) return NotFound();
+            ViewBag.Price = BookingFromDb.Price;
+            return View(BookingFromDb);
+        }
         public IActionResult MyBookings(string? newBooking)
         {
             if(HttpContext.Session.GetString("Complete") != null)
@@ -235,11 +253,13 @@ namespace SkyScanner.Controllers
             ModelState.MarkFieldValid("User_ID");
             if (ModelState.IsValid)
             {
-                if (check == true) { 
-                       _db.CreditCards.Add(obj);
-                       _db.SaveChanges();
+                if (check == true) {
+                    if (_db.CreditCards.Find(obj.CardNumber) == null) {
+                        _db.CreditCards.Add(obj);
+                        _db.SaveChanges();
+                    }
                 }
-                HttpContext.Session.SetString("CardNum", obj.CardNumber);
+                HttpContext.Session.SetString("CardNum", obj.CardNumber.Substring(obj.CardNumber.Length - 4));
                 return RedirectToAction("ConfirmBooking");
             }
             return View(obj);

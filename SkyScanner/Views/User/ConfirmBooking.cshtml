@@ -26,6 +26,16 @@
                     </font>
                     <input asp-for="TwoWay" style="width:305px;" class="btn-check" placeholder="ie.123456789" />
                     <span asp-validation-for="TwoWay" class="text-bg-danger"></span>
+                    <input type="hidden" asp-for="CardNumber" class="btn-check" value="@Context.Session.GetString("CardNum")"/>
+                    <span asp-validation-for="CardNumber" class="text-bg-danger"></span>
+                    <input type="hidden" asp-for="FlightId" class="btn-check" value="@Context.Session.GetString("FlightID")" />
+                    <span asp-validation-for="FlightId" class="text-bg-danger"></span>
+                    <input type="hidden" asp-for="Price" class="btn-check" value="@Context.Session.GetString("Price")" />
+                    <span asp-validation-for="Price" class="text-bg-danger"></span>
+                    <input type="hidden" asp-for="BookingDate" class="btn-check" value="@DateTime.Now" />
+                    <span asp-validation-for="BookingDate" class="text-bg-danger"></span>
+                    <input type="hidden" asp-for="FlightDate" class="btn-check" value="@DateTime.Parse(Context.Session.GetString("FlightDate"))" />
+                    <span asp-validation-for="FlightDate" class="text-bg-danger"></span>
                     </li>
                     <li class="list-group-item">
                         <div class="container"> 

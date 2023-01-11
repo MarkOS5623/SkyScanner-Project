@@ -40,16 +40,16 @@
                                             </a>
                                         </div>
                                     </li>
-                                    } else{
-                                    <li class="list-group-item">
-                                        <div class="btn-sm" role="group">
-                                            <a asp-controller="Flight" asp-action="BookSeat" asp-route-flightid="@obj.FlightId"
-                                                class="btn btn-primary btn-sm" style="width:160px;">
-                                              <font size="4" color="white">Book A Seat</font>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    }
+                                   } else {
+                                        <li class="list-group-item">
+                                            <div class="btn-sm" role="group">
+                                                <a asp-controller="Flight" asp-action="BookSeat" asp-route-flightid="@obj.FlightId"
+                                                    class="btn btn-primary btn-sm" style="width:160px;">
+                                                  <font size="4" color="white">Book A Seat</font>
+                                                </a>
+                                            </div>
+                                        </li>    
+                                     }
                                   </ul>
                                </div>
                             </div>
@@ -58,7 +58,6 @@
                    }
                 </div>
                 </div>
-
         </div>
         </div>
     </div>

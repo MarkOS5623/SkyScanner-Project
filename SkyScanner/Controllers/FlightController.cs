@@ -18,7 +18,6 @@ namespace SkyScanner.Controllers
         private FlightDbContext _db;
         private IHttpContextAccessor _httpContextAccessor;
         public static bool EnableOptimizations { get; set; }
-        
         public FlightController(FlightDbContext db, IHttpContextAccessor httpContextAccessor) //setting up db context
         {
             _db = db;
@@ -43,7 +42,7 @@ namespace SkyScanner.Controllers
         {
             var Admin = Request.Cookies["AdminCookie"];
             ViewData["Admin"] = Admin;
-            if(Seats==null) return NotFound();
+            if (Seats==null) return NotFound();
             List<string> list = Seats.Split(',').ToList(); 
             return View(list);
         }
@@ -87,6 +86,7 @@ namespace SkyScanner.Controllers
             if (flightid == null) return NotFound();
             var flightFromDb = _db.Flights.Find(flightid);
             if (flightFromDb == null) return NotFound();
+            HttpContext.Session.SetString("FlightDate", flightFromDb.TakeOffDate.ToString());
             var SeatsFromDb = _db.Seats.Where(x => x.Flight_num == flightid && x.Booked == true).ToList();
             return View(flightFromDb);
         }

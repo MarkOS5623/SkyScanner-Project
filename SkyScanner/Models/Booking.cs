@@ -40,6 +40,17 @@ namespace SkyScanner.Models
         public string? BookedSeats { get; set; }
         [DisplayName("Two Way")]
         public bool TwoWay { get; set; } = false;
-
+        [RegularExpression("^[0-9]{4}$", ErrorMessage = "Card number is not valid")]
+        [StringLength(4, MinimumLength = 4)]
+        [DisplayName("Card Number")]
+        public string CardNumber { get; set; }
+        [RegularExpression("^[0-9]{4}$", ErrorMessage = "Flight ID must only contain 4 numbers")]
+        [StringLength(4, MinimumLength = 4)]
+        [DisplayName("Flight Number")]
+        public string FlightId { get; set; }
+        [Required]
+        public string Price { get; set; } 
+        public DateTime FlightDate { get; set; }
+        public DateTime BookingDate { get; set; }
     }
 }

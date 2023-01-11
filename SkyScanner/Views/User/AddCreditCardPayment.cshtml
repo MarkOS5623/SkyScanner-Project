@@ -1,4 +1,7 @@
 ﻿@model CreditCard 
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
 
 <div class="parent">
     <form method="post">
@@ -40,7 +43,7 @@
                                 </div>
 
                                 <div class="form-check">
-                                    <label asp-for="Save" class="form-label ms-lg-auto"><b>Save This Card</b></label>
+                                    <label asp-for="Save" class="form-label ms-lg-auto"><font size="4" color="white"><b>Save This Card</b></font></label>
                                     <input asp-for="Save" type="checkbox" class="form-check-input" />
                                     <span asp-validation-for="Save" class="text-bg-danger"></span>
                                 </div>

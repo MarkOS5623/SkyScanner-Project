@@ -19,6 +19,7 @@ namespace SkyScanner.Models
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Destination name must be between 4 and 30 charaters long")]
         public string Destination { get; set; }
         [Required]
+        [DisplayName("Price Per Seat")]
         public double Price { get; set; } = 0;
         [Required]
         [StringLength(30, MinimumLength = 4, ErrorMessage = "Airline name must be between 4 and 30 charaters long")]

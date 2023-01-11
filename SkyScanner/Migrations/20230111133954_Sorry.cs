@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace SkyScanner.Migrations
 {
     /// <inheritdoc />
-    public partial class PleaseStop : Migration
+    public partial class Sorry : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +35,12 @@ namespace SkyScanner.Migrations
                     Destination = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     UserID = table.Column<string>(name: "User_ID", type: "nvarchar(4)", nullable: false),
                     BookedSeats = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    TwoWay = table.Column<bool>(type: "bit", nullable: false)
+                    TwoWay = table.Column<bool>(type: "bit", nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    FlightId = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FlightDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,16 +57,17 @@ namespace SkyScanner.Migrations
                 name: "CreditCards",
                 columns: table => new
                 {
-                    IsraeliID = table.Column<string>(name: "Israeli_ID", type: "nvarchar(9)", maxLength: 9, nullable: false),
-                    UserID = table.Column<string>(name: "User_ID", type: "nvarchar(4)", nullable: false),
                     CardNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    UserID = table.Column<string>(name: "User_ID", type: "nvarchar(4)", nullable: false),
+                    IsraeliID = table.Column<string>(name: "Israeli_ID", type: "nvarchar(9)", maxLength: 9, nullable: false),
                     ExpMonth = table.Column<int>(type: "int", nullable: false),
                     ExpYear = table.Column<int>(type: "int", nullable: false),
-                    CVV = table.Column<int>(type: "int", nullable: false)
+                    CVV = table.Column<int>(type: "int", nullable: false),
+                    Save = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CreditCards", x => x.IsraeliID);
+                    table.PrimaryKey("PK_CreditCards", x => x.CardNumber);
                     table.ForeignKey(
                         name: "FK_CreditCards_Users_User_ID",
                         column: x => x.UserID,
