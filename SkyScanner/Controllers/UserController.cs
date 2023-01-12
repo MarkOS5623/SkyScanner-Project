@@ -256,6 +256,14 @@ namespace SkyScanner.Controllers
             }
             return View();
         }
+
+        public IActionResult DeleteCreditCard(string? cardNum)
+        {
+            var obj = _db.CreditCards.Find(cardNum);
+            _db.CreditCards.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("PaymentMethods");
+        }
         public IActionResult AddCreditCardPayment() //GET method for AddCreditCardPayment
         {
             var Admin = Request.Cookies["AdminCookie"];

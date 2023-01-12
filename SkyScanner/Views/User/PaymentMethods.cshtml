@@ -19,12 +19,17 @@
                     <li class="list-group-item">
                             <p><b>Holder ID: </b> ID ending with @obj.Israeli_ID.Substring(obj.Israeli_ID.Length - 3)</p>
                     </li>
+                    <li class="list-group-item">
+                            <a asp-controller="User" asp-route-cardNum="@obj.CardNumber" asp-action="DeleteCreditCard" class="btn btn-primary btn-sm">
+                                <font size="4">Delete Card</font>
+                            </a>
+                    </li>
                 </ul>
                 }
                 <ul class="list-group p-3 text-center">
                 <a asp-controller="User" asp-action="AddCreditCard" style="width:auto; color:rgba(255, 255, 255, 1)">
                         <font size="8"><i class="bi bi-plus-circle"></i> </font>
-                    </a>
+                </a>
                 </ul>
         </div>
     </div>
